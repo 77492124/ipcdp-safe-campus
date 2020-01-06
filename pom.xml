@@ -32,6 +32,7 @@
         <module>ipcdp-open-server-file</module>
         <module>ipcdp-open-server-redis</module>
         <module>ipcdp-open-server-authorization</module>
+        <module>ipcdp-server-safe-campus</module>
     </modules>
 
     <properties>

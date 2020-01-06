@@ -1,0 +1,6 @@
+com:
+  jintu:
+    swagger:
+      base-package: com.jintu
+      title: 平安校园
+      description: 平安校园API接口说明

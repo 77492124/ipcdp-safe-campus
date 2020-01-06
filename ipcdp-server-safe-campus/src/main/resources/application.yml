@@ -1,0 +1,18 @@
+server:
+  port: ${PORT:8080} #服务端口
+  servlet:
+    context-path: /safe-campus
+spring:
+  application:
+    name: IPCDP-SERVER-SAFE-CAMPUS #指定服务名
+  profiles:
+    active: dev,admin,jintu #,lcn
+  main:
+    allow-bean-definition-overriding: true
+# 开启熔断
+feign:
+  hystrix:
+    enabled: true
+logging:
+  level:
+    com.jintu.safecampus.dal.dao: debug

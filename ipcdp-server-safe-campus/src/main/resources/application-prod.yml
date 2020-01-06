@@ -1,0 +1,63 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    home-page-url-path: ${server.servlet.context-path}
+    health-check-url-path: ${server.servlet.context-path}/actuator/health
+    status-page-url-path: ${server.servlet.context-path}/actuator/info
+    metadata-map:
+      management:
+        context-path: ${server.servlet.context-path}/actuator
+    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}:${random.int(100)}
+    leaseRenewalIntervalInSeconds: 10
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ipcdp-server-safe-campus?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: Zhsq123@zz
+    hikari:
+      ## 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      ## 最小空闲连接数量
+      minimum-idle: 10
+      ## 是允许连接在连接池中空闲的最长时间（以毫秒为单位）
+      idle-timeout: 180000
+      ## 连接池最大连接数，默认是10
+      maximum-pool-size: 20
+      ## 是池中连接关闭后的最长生命周期（以毫秒为单位）使用中的连接永远不会退役，只有当它关闭时才会在最长生命周期后删除
+      max-lifetime: 1200000
+      ## 配置从池返回的连接的默认自动提交行为。默认值为true
+      auto-commit: true
+      pool-name: SmartCatEyeHikariCP
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+## Mybatis plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  global-config:
+    ## 是否控制台 print mybatis-plus 的 LOGO
+    banner: false
+    db-config:
+      ## 全局默认主键类型
+      id-type: id_worker_str
+      ## 逻辑已删除值,(逻辑删除下有效）
+      logic-delete-value: 1
+      ## 逻辑未删除值,(逻辑删除下有效)
+      logic-not-delete-value: 0
+      ## 检查策略
+      insert-strategy: not_empty
+      update-strategy: not_empty
+      select-strategy: not_empty
+
+
+
+
