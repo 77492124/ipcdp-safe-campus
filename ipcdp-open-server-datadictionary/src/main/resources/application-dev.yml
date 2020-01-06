@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: IPCDP-OPEN-SERVER-DATADICTIONARY #指定服务名
+  profiles:
+    active: dev,admin,jintu,lcn
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.8.112:3306/ipcdp-open-server-datadictionary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong
+    username: test
+    password: test
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://192.168.8.145:50101/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    home-page-url-path: ${server.servlet.context-path}
+    health-check-url-path: ${server.servlet.context-path}/actuator/health
+    status-page-url-path: ${server.servlet.context-path}/actuator/info
+    metadata-map:
+      management:
+        context-path: ${server.servlet.context-path}/actuator
+    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}:${random.int(100)}
+    leaseRenewalIntervalInSeconds: 10
+
+#logging:
+#  level: debug

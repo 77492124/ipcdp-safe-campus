@@ -1,0 +1,61 @@
+server:
+  port: ${PORT:55555} #服务端口
+spring:
+  application:
+    name: IPCDP-GOVERN-ZUUL #指定服务名
+  profiles:
+    active: dev,admin
+zuul:
+  prefix: /api
+  #  add-proxy-headers: false  #请求头默认在跳转时添加. 通过设置 zuul.addProxyHeaders = false 关闭它. 前缀路径默认剥离, 并且对于后端的请求通过请求头"X-Forwarded-Prefix"获取(zuul整合swagger必须加)
+  ignored-services: "*"
+  routes:
+    ipcdp-server-demo-consumer:  #路由名称，名称任意，保持所有路由名称唯一
+      path: /consumer/**
+      serviceId: ipcdp-server-demo-consumer #微服务名称，网关会从eureka中获取该服务名称下的服务实例的地址
+      # 例子：将请求转发到http://localhost:31200/admin
+      #url: http://www.baidu.com #也可指定url，此url也可以是外网地址\
+      strip-prefix: true #true：代理转发时去掉前缀，false:代理转发时不去掉前缀
+      sensitiveHeaders:  #默认zuul会屏蔽cookie，cookie不会传到下游服务，这里设置为空则取消默认的黑名单，如果设置了具体的头信息则不会传到下游服务
+      #   ignoredHeaders: 默认为空表示不过虑任何头
+    ipcdp-server-demo-producer:
+      path: /producer/**
+      serviceId: ipcdp-server-demo-producer
+      sensitiveHeaders:
+      strip-prefix: false #true：代理转发时去掉前缀，false:代理转发时不去掉前缀
+    ipcdp-open-server-datadictionary:
+      path: /datadictionary/**
+      serviceId: ipcdp-open-server-datadictionary
+      strip-prefix: false
+      sensitiveHeaders:
+    ipcdp-open-server-file:
+      path: /file/**
+      serviceId: ipcdp-open-server-file
+      strip-prefix: false
+      sensitiveHeaders:
+    ipcdp-open-server-redis:
+      path: /redis/**
+      serviceId: ipcdp-open-server-redis
+      strip-prefix: false
+      sensitiveHeaders:
+    ipcdp-govern-log-client:
+      path: /log/**
+      serviceId: ipcdp-govern-log-client
+      strip-prefix: false
+      sensitiveHeaders:
+    ipcdp-server-login:
+      path: /login/**
+      serviceId: ipcdp-server-login
+      strip-prefix: false
+      sensitiveHeaders:
+ipcdp-open-server-datadictionary:
+  ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000
+ipcdp-open-server-file:
+  ribbon:
+    ReadTimeout: 60000
+    ConnectTimeout: 60000
+ribbon:
+  eureka:
+    enabled: true

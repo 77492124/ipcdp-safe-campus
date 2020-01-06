@@ -1,0 +1,16 @@
+com:
+  jintu:
+    swagger:
+      base-package: com.jintu
+      title: 文件上传API
+      description: 文件上传API接口说明
+    file-local:
+      path: d:/localFile
+      prefix: /statics
+      url-prefix:  http://192.168.10.174:11111/wisdomcommunity${server.servlet.context-path}${com.jintu.file-local.prefix}
+    file-aliyun:
+      endpoint: oss-cn-beijing.aliyuncs.com
+      accessKeyId: LTAIRposqsTu9GvP
+      accessKeySecret: 68sChcLckthBXyExh36OyB50ssA0la
+      bucketName: wangjinhai
+      domain: http://wangjinhai.oss-cn-beijing.aliyuncs.com

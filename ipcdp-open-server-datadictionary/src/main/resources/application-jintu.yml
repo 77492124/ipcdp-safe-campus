@@ -1,0 +1,6 @@
+com:
+  jintu:
+    swagger:
+      base-package: com.jintu
+      title: 数据字典API
+      description: 数据字典API接口说明

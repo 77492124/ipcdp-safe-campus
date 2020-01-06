@@ -1,0 +1,6 @@
+com:
+  jintu:
+    swagger:
+      base-package: com.jintu
+      title: redisAPI
+      description: redisAPI接口说明

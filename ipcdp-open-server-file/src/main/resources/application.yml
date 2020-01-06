@@ -1,0 +1,14 @@
+server:
+  port: ${PORT:40000} #服务端口
+  servlet:
+    context-path: /file
+spring:
+  application:
+    name: IPCDP-OPEN-SERVER-FILE #指定服务名
+  profiles:
+    active: dev,admin,curb
+  cloud:
+    inetutils:
+      #      网卡配置
+      preferred-networks:
+        - 192.168.8

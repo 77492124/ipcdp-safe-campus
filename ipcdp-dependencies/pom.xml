@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jintu</groupId>
+    <artifactId>ipcdp-dependencies</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+        <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
+        <springfox-swagger.version>2.8.0</springfox-swagger.version>
+        <guava.version>24.0-jre</guava.version>
+        <commons-io.version>2.6</commons-io.version>
+        <fastjson.version>1.2.30</fastjson.version>
+        <spring-security-crypto.version>4.2.3.RELEASE</spring-security-crypto.version>
+        <spring-security-jwt.version>1.0.8.RELEASE</spring-security-jwt.version>
+        <httpclient.version>4.5.3</httpclient.version>
+        <jackson.version.core>2.9.6</jackson.version.core>
+        <codingapi.txlcn.version>5.0.2.RELEASE</codingapi.txlcn.version>
+        <aliyun-sdk-oss.version>2.8.2</aliyun-sdk-oss.version>
+        <jackson.version>2.9.8</jackson.version>
+        <hutool.version>4.5.16</hutool.version>
+        <mybatis-plus-annotation.version>3.1.2</mybatis-plus-annotation.version>
+        <weixin-java-mp.version>3.5.0</weixin-java-mp.version>
+        <bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
+        <retrofit.version>2.3.0</retrofit.version>
+        <logging-interceptor.version>3.8.0</logging-interceptor.version>
+        <jersey.version>2.23.2</jersey.version>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>Apache 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.jintu</groupId>
+                <artifactId>ipcdp-spring-boot-starter-log</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jintu</groupId>
+                <artifactId>ipcdp-framework-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot-admin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox-swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox-swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-crypto -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-crypto</artifactId>
+                <version>${spring-security-crypto.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-jwt -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${spring-security-jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+
+            <!--LCN-->
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>txlcn-tc</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>txlcn-tm</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>txlcn-logger</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.codingapi.txlcn</groupId>
+                <artifactId>txlcn-txmsg-netty</artifactId>
+                <version>${codingapi.txlcn.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun-sdk-oss.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus-annotation.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-base</artifactId>
+                <version>4.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-annotation</artifactId>
+                <version>4.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+                <version>${weixin-java-mp.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bcprov-jdk15on.version}</version>
+            </dependency>
+
+            <!--http client-->
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>retrofit</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>converter-simplexml</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.retrofit2</groupId>
+                <artifactId>converter-gson</artifactId>
+                <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>logging-interceptor</artifactId>
+                <version>${logging-interceptor.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.connectors</groupId>
+                <artifactId>jersey-apache-connector</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.jpush.api</groupId>
+                <artifactId>jpush-client</artifactId>
+                <version>3.4.2</version>
+            </dependency>
+        </dependencies>
+
+
+    </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <name>Spring Milestone</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestone</id>
+            <name>Spring Milestone</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-snapshot</id>
+            <name>Spring Snapshot</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

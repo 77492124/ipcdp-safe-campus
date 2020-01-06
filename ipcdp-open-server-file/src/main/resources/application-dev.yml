@@ -1,0 +1,45 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://127.0.0.1:50101/eureka}
+    registry-fetch-interval-seconds: 5
+  instance:
+    home-page-url-path: ${server.servlet.context-path}
+    health-check-url-path: ${server.servlet.context-path}/actuator/health
+    status-page-url-path: ${server.servlet.context-path}/actuator/info
+    metadata-map:
+      management:
+        context-path: ${server.servlet.context-path}/actuator
+    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}:${random.int(100)}
+    leaseRenewalIntervalInSeconds: 10
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ipcdp_open_service_file?useUnicode=true&characterEncoding=utf-8&&useLegacyDatetimeCode=false&serverTimezone=Hongkong
+    username: chang
+    password: Changpeibing521..
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+  #请求url错误抛404异常
+  mvc:
+    throw-exception-if-no-handler-found: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB

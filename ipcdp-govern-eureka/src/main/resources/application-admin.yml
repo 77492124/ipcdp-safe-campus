@@ -1,0 +1,19 @@
+spring:
+  boot:
+    admin:
+      client:
+        url: ${ADMIN_SERVER:http://localhost:44444}
+        instance:
+          prefer-ip: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: ALWAYS
+info:
+  version: @project.version@
+  name: @project.artifactId@

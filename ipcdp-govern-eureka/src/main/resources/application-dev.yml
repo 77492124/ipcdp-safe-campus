@@ -1,0 +1,20 @@
+eureka:
+  client:
+    registry-fetch-interval-seconds: 5
+    registerWithEureka: true #服务注册，是否将自己注册到Eureka服务中
+    fetchRegistry: true #服务发现，是否从Eureka中获取注册信息
+    serviceUrl: #Eureka客户端与Eureka服务端的交互地址，高可用状态配置对方的地址，单机状态配置自己（如果不配置则默认本机8761端口）
+      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka}
+  server:
+    #是否开启自我保护模式
+    enable-self-preservation: false
+    # 每隔3s扫描服务列表，移除失效服务
+    eviction-interval-timer-in-ms: 3000
+  instance:
+    # 告知服务端15秒还未收到心跳的话，就将该服务移除列表
+    lease-expiration-duration-in-seconds: 15
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}:${random.int(100)}
+    # 每隔10s发送一次心跳
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health

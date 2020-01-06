@@ -1,0 +1,60 @@
+version: '3'              #docker的文件格式版本
+services:
+  eureka50101:
+    build: ./eureka
+    image: eureka
+    ports:
+      - "50101:50101"
+    restart: always
+    environment:
+      - EUREKA_SERVER=http://eureka50102:50102/eureka/,http://eureka50101:50101/eureka/
+      - eureka.instance.prefer-ip-address=true
+      - logging.level.root=info
+      - PORT=50101
+      - ADMIN_SERVER=http://admin:44444
+  eureka50102:
+    image: eureka
+    ports:
+      - "50102:50102"
+    restart: always
+    environment:
+      - EUREKA_SERVER=http://eureka50101:50101/eureka/,http://eureka50102:50102/eureka/
+      - eureka.instance.prefer-ip-address=true
+      - logging.level.root=info
+      - PORT=50102
+      - ADMIN_SERVER=http://admin:44444
+  admin:
+    build: ./admin
+    restart: always
+    image: admin
+    ports:
+      - "44444:44444"
+    environment:
+      - EUREKA_SERVER=http://eureka50101:50101/eureka/,http://eureka50102:50102/eureka/
+      - eureka.instance.prefer-ip-address=true
+      - logging.level.root=info
+      - PORT=44444
+  cloudredis:
+    build: ./redis
+    restart: always
+    image: cloudredis
+      # ports:
+    # - "40020:40020"
+    environment:
+      - EUREKA_SERVER=http://eureka50101:50101/eureka/,http://eureka50102:50102/eureka/
+      - logging.level.root=info
+      #- PORT=40020
+      - ADMIN_SERVER=http://admin:44444
+      - REDIS_HOST=192.168.8.111
+  zuul:
+    build: ./zuul
+    restart: always
+    image: zuul
+    ports:
+      - "55555:55555"
+    environment:
+      - EUREKA_SERVER=http://eureka50101:50101/eureka/,http://eureka50102:50102/eureka/
+      - eureka.instance.prefer-ip-address=true
+      - logging.level.root=info
+      - PORT=55555
+      - ADMIN_SERVER=http://admin:44444

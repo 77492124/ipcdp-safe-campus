@@ -1,0 +1,16 @@
+server:
+  port: ${PORT:40020} #服务端口
+  servlet:
+    context-path: /redis
+spring:
+  application:
+    name: IPCDP-OPEN-SERVER-REDIS #指定服务名
+  profiles:
+    active: dev,admin,jintu
+  cloud:
+    inetutils:
+      #      网卡配置
+      preferred-networks:
+        - 192.168.8
+logging:
+  config: classpath:logback-spring.xml

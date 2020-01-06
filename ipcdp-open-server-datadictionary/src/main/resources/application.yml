@@ -1,0 +1,12 @@
+server:
+  port: ${PORT:40010} #服务端口
+  servlet:
+    context-path: /datadictionary
+spring:
+  profiles:
+    active: dev,admin,jintu
+  cloud:
+    inetutils:
+      #      网卡配置
+      preferred-networks:
+        - 192.168.8

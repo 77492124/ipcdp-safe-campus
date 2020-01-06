@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: IPCDP-OPEN-SERVER-DATADICTIONARY #指定服务名
+  profiles:
+    active: dev,admin,jintu,lcn
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ipcdp-open-server-datadictionary?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Hongkong
+    username: root
+    password: Zhsq123@zz
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+
+eureka:
+  client:
+    registerWithEureka: true #服务注册开关
+    fetchRegistry: true #服务发现开关
+    serviceUrl: #Eureka客户端与Eureka服务端进行交互的地址，多个中间用逗号分隔
+      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka/,http://localhost:50102/eureka/}
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    prefer-ip-address:  true  #将自己的ip地址注册到Eureka服务中
+    instance-id: ${spring.application.name}:${server.port}:${random.int(100)} #指定实例id

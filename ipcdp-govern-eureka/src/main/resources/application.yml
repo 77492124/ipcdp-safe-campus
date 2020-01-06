@@ -1,0 +1,7 @@
+server:
+  port: ${PORT:50101} #服务端口
+spring:
+  application:
+    name: IPCDP-GOVERN-EUREKA #指定服务名
+  profiles:
+    active: dev

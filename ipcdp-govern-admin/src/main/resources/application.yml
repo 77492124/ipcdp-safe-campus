@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:44444} #服务端口
+spring:
+  application:
+    name: IPCDP-GOVERN-ADMIN #指定服务名
+  profiles:
+    active: dev
+#  mail:
+#    host: smtp.163.com
+#    username: 15829059046@163.com
+#    password: woyunle123
+  boot:
+    admin:
+      ui:
+        brand: <img src="assets/img/icon-spring-boot-admin.svg"><span>开放平台服务监控</span>
+        title: 开放平台服务监控
+#      notify:
+#        mail:
+#          to: 506984994@qq.com
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+info:
+  version: @project.version@
+  name: @project.artifactId@
