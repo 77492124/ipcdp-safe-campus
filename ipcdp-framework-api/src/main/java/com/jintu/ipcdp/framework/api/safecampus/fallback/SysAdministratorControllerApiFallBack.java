@@ -3,8 +3,8 @@ package com.jintu.ipcdp.framework.api.safecampus.fallback;
 import com.jintu.ipcdp.framework.api.safecampus.SysAdministratorControllerApi;
 import com.jintu.ipcdp.framework.model.response.CommonCode;
 import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.AdministratorLoginRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.AdministratorLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.AdministratorLoginRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.AdministratorLoginResponseDTO;
 import org.springframework.stereotype.Component;
 
 /**

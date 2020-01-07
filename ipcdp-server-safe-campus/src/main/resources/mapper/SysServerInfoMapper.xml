@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.SysServerInfoMapper">
 
+    <select id="findSysServerList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSysServerListResponseDTO">
+        select a.id,a.server_name,a.server_type,a.ip_address,a.port_number,a.mark_online
+        from sys_server_info as a
+        where a.deleted = 0
+    </select>
+    <select id="findSysServerById"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSysServerByIdResponseDTO">
+        select a.id,a.server_name,a.server_type,a.ip_address,a.port_number,a.mark_online
+        from sys_server_info as a
+        where a.deleted = 0
+    </select>
 </mapper>

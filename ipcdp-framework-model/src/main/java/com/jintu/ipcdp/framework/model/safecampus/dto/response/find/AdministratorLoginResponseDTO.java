@@ -1,4 +1,4 @@
-package com.jintu.ipcdp.framework.model.safecampus.dto.response;
+package com.jintu.ipcdp.framework.model.safecampus.dto.response.find;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

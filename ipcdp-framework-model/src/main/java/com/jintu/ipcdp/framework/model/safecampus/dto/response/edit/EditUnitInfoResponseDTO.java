@@ -1,4 +1,4 @@
-package com.jintu.ipcdp.framework.model.safecampus.dto.response;
+package com.jintu.ipcdp.framework.model.safecampus.dto.response.edit;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,12 +8,11 @@ import java.math.BigDecimal;
 /**
  * @Author Parker
  * @Description: 描述
- * @Date 2020/1/6 17:34
+ * @Date 2020/1/7 10:35
  * @Version 1.0
  */
 @Data
-public class FindUnitInfoListResponseDTO {
-
+public class EditUnitInfoResponseDTO {
     /**
      * 唯一标识ID 唯一标识ID
      */
@@ -49,6 +48,12 @@ public class FindUnitInfoListResponseDTO {
      */
     @ApiModelProperty("纬度")
     private BigDecimal latitude;
+
+    /**
+     * 单位管理员id
+     */
+    @ApiModelProperty("单位管理员id")
+    private Long employeeId;
 
     /**
      * 单位管理员账号

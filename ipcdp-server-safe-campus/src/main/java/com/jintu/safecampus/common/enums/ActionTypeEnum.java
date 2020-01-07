@@ -10,7 +10,7 @@ public enum  ActionTypeEnum {
     /**
      * 增加 1、添加 2、修改 3、删除 4、查询
      */
-    ADD(1, "注册"),
+    SAVE(1, "添加"),
     UPDATE(2,"修改"),
     DELETE(3,"删除"),
     FIND(4,"查询"),

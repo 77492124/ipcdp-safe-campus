@@ -3,8 +3,8 @@ package com.jintu.safecampus.controller;
 
 import com.jintu.ipcdp.framework.api.safecampus.SysAdministratorControllerApi;
 import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.AdministratorLoginRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.AdministratorLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.AdministratorLoginRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.AdministratorLoginResponseDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
 import com.jintu.safecampus.service.ISysAdministratorService;
@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @author 常培兵
  * @since 2020-01-06
  */
-@Api(tags = "系统管理员接口 ")
+@Api(tags = "系统管理员接口")
 @RestController
 @RequestMapping("/sys-administrator")
 public class SysAdministratorController implements SysAdministratorControllerApi {

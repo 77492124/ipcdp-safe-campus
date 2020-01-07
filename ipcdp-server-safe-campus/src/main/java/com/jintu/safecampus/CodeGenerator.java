@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import com.baomidou.mybatisplus.generator.config.po.LikeTable;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
@@ -124,8 +123,8 @@ public class CodeGenerator {
         list.add(new TableFill("updated_time", FieldFill.INSERT_UPDATE));
         strategy.setTableFillList(list);
         strategy.setTablePrefix(pc.getModuleName() + "_");
-        strategy.setInclude("sys_server_info");
-        strategy.setNotLikeTable(new LikeTable("pdman_db_version"));
+        strategy.setInclude("employee_job_relation","unit_server_info","unit_camera_list");
+        //strategy.setNotLikeTable(new LikeTable("pdman_db_version"));
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();

@@ -3,8 +3,8 @@
 <mapper namespace="com.jintu.safecampus.dal.dao.UnitInfoMapper">
 
     <select id="findUnitInfoList"
-            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.FindUnitInfoListResponseDTO">
-        select a.id,a.unit_name,a.unit_type,a.unit_address,a.longitude,a.latitude,b.user_name,b.pass_word
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO">
+        select a.id,a.unit_name,a.unit_type,a.unit_address,a.longitude,a.latitude,b.id as employeeId,b.user_name,b.pass_word
         from unit_info as a inner join employee b on a.id = b.unit_info_id and b.admin_mark = 1
         where a.deleted = 0
             <if test="dto.unitName != null ">
@@ -16,5 +16,12 @@
             <if test="dto.userName != null ">
                 and b.user_name like CONCAT(#{dto.userName},'%')
             </if>
+    </select>
+    <select id="findUnitInfoById"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO">
+        select a.id,a.unit_name,a.unit_type,a.unit_address,a.longitude,a.latitude,b.id as employeeId,b.user_name,b.pass_word
+        from unit_info as a inner join employee b on a.id = b.unit_info_id and b.admin_mark = 1
+        where a.deleted = 0
+            and a.id = #{id}
     </select>
 </mapper>

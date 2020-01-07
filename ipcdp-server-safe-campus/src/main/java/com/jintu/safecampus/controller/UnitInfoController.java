@@ -2,9 +2,14 @@ package com.jintu.safecampus.controller;
 
 
 import com.jintu.ipcdp.framework.api.safecampus.UnitInfoControllerApi;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.FindUnitInfoListRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.FindUnitInfoListResponseDTO;
+import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitInfoRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitInfoRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
 import com.jintu.safecampus.service.IUnitInfoService;
@@ -36,5 +41,33 @@ public class UnitInfoController implements UnitInfoControllerApi {
     @Override
     public QueryResponseResult<FindUnitInfoListResponseDTO> findUnitInfoList(FindUnitInfoListRequestDTO requestDTO) {
         return unitInfoService.findUnitInfoList(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.SAVE, description = "新增单位")
+    @ApiOperation(value = "新增单位", response = ResponseResult.class)
+    @Override
+    public ResponseResult saveUnitInfo(SaveUnitInfoRequestDTO requestDTO) {
+        return unitInfoService.saveUnitInfo(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.UPDATE, description = "编辑单位")
+    @ApiOperation(value = "编辑单位", response = EditUnitInfoResponseDTO.class)
+    @Override
+    public CommonResponseResult<EditUnitInfoResponseDTO> editUnitInfo(EditUnitInfoRequestDTO requestDTO) {
+        return unitInfoService.editUnitInfo(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "根据单位id查询单位信息")
+    @ApiOperation(value = "根据单位id查询单位信息", response = EditUnitInfoResponseDTO.class)
+    @Override
+    public CommonResponseResult<EditUnitInfoResponseDTO> findUnitInfoById(Long unitInfoId) {
+        return unitInfoService.findUnitInfoById(unitInfoId);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.DELETE, description = "根据单位id删除单位")
+    @ApiOperation(value = "根据单位id删除单位", response = ResponseResult.class)
+    @Override
+    public ResponseResult delUnitInfo(Long unitInfoId) {
+        return unitInfoService.delUnitInfo(unitInfoId);
     }
 }

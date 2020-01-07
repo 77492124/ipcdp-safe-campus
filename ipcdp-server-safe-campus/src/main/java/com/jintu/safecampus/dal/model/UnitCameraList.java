@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author 常培兵
- * @since 2020-01-06
+ * @since 2020-01-07
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -72,10 +72,16 @@ public class UnitCameraList implements Serializable {
     private BigDecimal threshold;
 
     /**
-     * 在线标记 0：离线；1：在线；
+     * 在线标记 在线标记0：离线；1：在线；
      */
     @TableField("mark_online")
     private Boolean markOnline;
+
+    /**
+     * 创建人id
+     */
+    @TableField("created_id")
+    private Long createdId;
 
     /**
      * 是否删除 0：未删除；1：已删除

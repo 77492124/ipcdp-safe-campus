@@ -2,8 +2,8 @@ package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.AdministratorLoginRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.AdministratorLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.AdministratorLoginRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.AdministratorLoginResponseDTO;
 import com.jintu.safecampus.dal.model.SysAdministrator;
 
 /**

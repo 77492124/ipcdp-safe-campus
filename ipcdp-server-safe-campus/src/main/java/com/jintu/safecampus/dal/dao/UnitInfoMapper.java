@@ -3,8 +3,9 @@ package com.jintu.safecampus.dal.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.FindUnitInfoListRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.FindUnitInfoListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import com.jintu.safecampus.dal.model.UnitInfo;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,11 @@ public interface UnitInfoMapper extends BaseMapper<UnitInfo> {
      * @return
      */
     IPage<FindUnitInfoListResponseDTO> findUnitInfoList(Page<FindUnitInfoListResponseDTO> page, @Param("dto") FindUnitInfoListRequestDTO requestDTO);
+
+    /**
+     * 根据单位id查询单位信息
+     * @param id 单位id
+     * @return 单位信息
+     */
+    EditUnitInfoResponseDTO findUnitInfoById(Long id);
 }

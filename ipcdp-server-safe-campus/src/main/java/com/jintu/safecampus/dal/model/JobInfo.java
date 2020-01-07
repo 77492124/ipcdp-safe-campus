@@ -1,16 +1,16 @@
 package com.jintu.safecampus.dal.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -38,7 +38,7 @@ public class JobInfo implements Serializable {
      * 单位id 单位id
      */
     @TableField("unit_info_id")
-    private String unitInfoId;
+    private Long unitInfoId;
 
     /**
      * 岗位名称 岗位名称
@@ -56,7 +56,7 @@ public class JobInfo implements Serializable {
      * 创建人id 创建人id（员工id）
      */
     @TableField("created_id")
-    private String createdId;
+    private Long createdId;
 
     /**
      * 是否删除 0：未删除；1：已删除

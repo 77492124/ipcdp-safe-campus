@@ -1,16 +1,16 @@
 package com.jintu.safecampus.dal.model;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author 常培兵
- * @since 2020-01-06
+ * @since 2020-01-07
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -59,16 +59,22 @@ public class UnitServerInfo implements Serializable {
     private String ipAddress;
 
     /**
-     * 端口号
+     * 端口号 端口号
      */
     @TableField("port_number")
     private String portNumber;
 
     /**
-     * 在线标记 0：离线；1：在线；
+     * 在线标记 在线标记0：离线；1：在线；
      */
     @TableField("mark_online")
     private Boolean markOnline;
+
+    /**
+     * 创建人id
+     */
+    @TableField("created_id")
+    private Long createdId;
 
     /**
      * 是否删除 0：未删除；1：已删除
