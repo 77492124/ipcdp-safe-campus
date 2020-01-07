@@ -16,8 +16,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/alarm-info")
 public class AlarmInfoController {
-
-    public void test(){
-
-    }
 }

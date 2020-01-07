@@ -3,6 +3,8 @@ package com.jintu.safecampus.common.aop;
 import com.google.gson.Gson;
 import com.jintu.ipcdp.framework.exception.CustomException;
 import com.jintu.safecampus.common.annotation.MyLog;
+import com.jintu.safecampus.dal.model.SysLogging;
+import com.jintu.safecampus.service.ISysLoggingService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -13,10 +15,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @Author Parker
@@ -29,9 +33,14 @@ import java.util.Objects;
 @Slf4j
 public class MyLogAspect {
 
+    @Resource
+    private ISysLoggingService sysLoggingService;
+
+    @Resource
+    private ExecutorService executorService;
 
     @Around("@annotation(com.jintu.safecampus.common.annotation.MyLog)")
-    public Object around(ProceedingJoinPoint point) {
+    public Object around(ProceedingJoinPoint point) throws Throwable {
         Object result = null;
         long beginTime = System.currentTimeMillis();
         String resultStr = null;
@@ -46,13 +55,17 @@ public class MyLogAspect {
                 CustomException e1 = (CustomException) e;
                 resultStr = e1.getResultCode().message();
                 log.error("记录操作日志发生异常：{}",resultStr);
+            }else {
+                resultStr = e.getMessage();
             }
             bool = true;
+            throw e;
+        }finally {
+            // 执行时长(毫秒)
+            long time = System.currentTimeMillis() - beginTime;
+            // 保存日志
+            saveLog(point, time, resultStr,bool);
         }
-        // 执行时长(毫秒)
-        long time = System.currentTimeMillis() - beginTime;
-        // 保存日志
-        saveLog(point, time, resultStr,bool);
         return result;
     }
 
@@ -67,16 +80,17 @@ public class MyLogAspect {
     private void saveLog(ProceedingJoinPoint joinPoint, long time, String resultStr, boolean errorMark) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        SysLog sysLog = new SysLog();
+        SysLogging sysLogging = new SysLogging();
         MyLog logAnnotation = method.getAnnotation(MyLog.class);
         if (logAnnotation != null) {
             // 注解上的描述
-            sysLog.setOperation(logAnnotation.description());
+            sysLogging.setActionType(logAnnotation.actionType().getValue());
+            sysLogging.setDescription(logAnnotation.description());
         }
         // 请求的方法名
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
-        sysLog.setMethod(className + "." + methodName + "()");
+        sysLogging.setRunMethod(className + "." + methodName + "()");
         // 请求的方法参数值
         Object[] args = joinPoint.getArgs();
         // 请求的方法参数名称
@@ -87,21 +101,31 @@ public class MyLogAspect {
             for (int i = 0; i < args.length; i++) {
                 params.append("  ").append(paramNames[i]).append(": ").append(args[i]);
             }
-            sysLog.setParams(params.toString());
+            sysLogging.setParams(params.toString());
         }
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = Objects.requireNonNull(attributes).getRequest();
+        // 获取请求头的参数
         String userId = request.getHeader("userId");
-        int operationSource = request.getIntHeader("operation_source");
+        String operationSource = request.getHeader("operation_source");
         // 设置IP地址
-        sysLog.setIp(this.getIpAddress(request));
-        // 模拟一个用户名
-        sysLog.setTime((int) time);
-        sysLog.setCreateTime(new Date());
+        sysLogging.setIpAddress(this.getIpAddress(request));
+        sysLogging.setResult(resultStr);
+        sysLogging.setRunTime(time);
+        sysLogging.setErrorMark(errorMark);
+        sysLogging.setOperationId(userId == null ? null : Long.valueOf(userId));
+        sysLogging.setOperationSource(operationSource == null ? null : Integer.valueOf(operationSource));
         // 保存系统日志
-        System.out.println("userid:"+userId+",operationSource:"+operationSource);
-        System.out.println("日志："+sysLog.toString());
+        log.info("保存日志:{}",sysLogging);
+        // 异步将Log添加数据库
+        CompletableFuture.runAsync(() -> {
+            try {
+                sysLoggingService.save(sysLogging);
+                log.info("【添加至数据库】：{}", sysLogging);
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        },executorService);
     }
 
     /**

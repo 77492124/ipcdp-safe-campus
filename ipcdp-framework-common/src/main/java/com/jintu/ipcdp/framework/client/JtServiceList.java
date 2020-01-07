@@ -26,5 +26,10 @@ public class JtServiceList {
      */
     public static final String IPCDP_OPEN_SERVER_AUTHORIZATION = "IPCDP-OPEN-SERVER-AUTHORIZATION";
 
+    /**
+     * 平安校园
+     */
+    public static final String IPCDP_SERVER_SAFE_CAMPUS = "IPCDP-SERVER-SAFE-CAMPUS";
+
 
 }

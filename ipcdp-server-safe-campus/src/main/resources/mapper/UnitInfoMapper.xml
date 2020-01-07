@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.UnitInfoMapper">
 
+    <select id="findUnitInfoList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.FindUnitInfoListResponseDTO">
+        select a.id,a.unit_name,a.unit_type,a.unit_address,a.longitude,a.latitude,b.user_name,b.pass_word
+        from unit_info as a inner join employee b on a.id = b.unit_info_id and b.admin_mark = 1
+        where a.deleted = 0
+            <if test="dto.unitName != null ">
+                and a.unit_name like CONCAT(#{dto.unitName},'%')
+            </if>
+            <if test="dto.unitAddress != null ">
+                and a.unit_address like CONCAT(#{dto.unitAddress},'%')
+            </if>
+            <if test="dto.userName != null ">
+                and b.user_name like CONCAT(#{dto.userName},'%')
+            </if>
+    </select>
 </mapper>

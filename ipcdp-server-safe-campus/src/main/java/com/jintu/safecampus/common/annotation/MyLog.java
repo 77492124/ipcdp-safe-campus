@@ -1,5 +1,7 @@
 package com.jintu.safecampus.common.annotation;
 
+import com.jintu.safecampus.common.enums.ActionTypeEnum;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,7 +20,7 @@ import java.lang.annotation.Target;
 public @interface MyLog {
     //描述
     String description() default "" ;
-    //操作的类型，1、添加 2、修改 3、删除 4、查询
-    String actionType() default "" ;
+    //操作的类型,枚举
+    ActionTypeEnum actionType() default ActionTypeEnum.OTHER;
 
 }

@@ -1,6 +1,9 @@
 package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.AdministratorLoginRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.AdministratorLoginResponseDTO;
 import com.jintu.safecampus.dal.model.SysAdministrator;
 
 /**
@@ -12,5 +15,10 @@ import com.jintu.safecampus.dal.model.SysAdministrator;
  * @since 2020-01-06
  */
 public interface ISysAdministratorService extends IService<SysAdministrator> {
-
+    /**
+     * 超级管理员登录
+     * @param requestDTO 登录信息
+     * @return 管理员信息
+     */
+    CommonResponseResult<AdministratorLoginResponseDTO> administratorLogin(AdministratorLoginRequestDTO requestDTO);
 }

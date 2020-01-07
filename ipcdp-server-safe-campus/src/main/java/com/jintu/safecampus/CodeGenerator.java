@@ -124,7 +124,7 @@ public class CodeGenerator {
         list.add(new TableFill("updated_time", FieldFill.INSERT_UPDATE));
         strategy.setTableFillList(list);
         strategy.setTablePrefix(pc.getModuleName() + "_");
-        //strategy.setInclude("users");
+        strategy.setInclude("sys_server_info");
         strategy.setNotLikeTable(new LikeTable("pdman_db_version"));
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
