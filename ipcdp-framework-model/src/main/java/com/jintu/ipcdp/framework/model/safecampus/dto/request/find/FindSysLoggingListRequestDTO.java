@@ -42,7 +42,7 @@ public class FindSysLoggingListRequestDTO extends BaseRequest {
     /**
      * 创建时间 创建时间
      */
-    @ApiModelProperty("发布日期 yyyy-MM-dd")
+    @ApiModelProperty("创建日期 yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate createdTime;
 }

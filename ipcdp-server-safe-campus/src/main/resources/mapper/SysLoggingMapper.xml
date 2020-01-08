@@ -4,6 +4,23 @@
 
     <select id="findSysLoggingList"
             resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSysLoggingListResponseDTO">
-
+        select a.id,a.action_type,if(a.operation_source = 1,
+            (select sys_admin.nickname from sys_administrator as sys_admin where sys_admin.id = a.operation_id),
+            (select employee.employee_name from employee where employee.id = a.operation_id)) as operationName,
+            a.operation_source,a.description,a.run_method,a.params,a.result,a.ip_address,a.run_time,a.error_mark
+        from sys_logging as a
+        where a.deleted = 0
+        <if test="dto.actionType != null">
+            and a.action_type = #{dto.actionType}
+        </if>
+        <if test="dto.operationSource != null ">
+            and a.operation_source = #{dto.operationSource}
+        </if>
+        <if test="dto.errorMark != null ">
+            and a.error_mark = #{dto.errorMark}
+        </if>
+        <if test="dto.createdTime != null ">
+            and DATE(a.created_time) = #{dto.createdTime}
+        </if>
     </select>
 </mapper>

@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.JobInfoMapper">
 
+    <select id="findJobInfoList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindJobInfoListResponseDTO">
+        select a.id,a.job_name,a.job_description
+        from job_info as a
+        where a.deleted = 0
+            and a.unit_info_id = #{dto.unitInfoId}
+        <if test="dto.jobName != null ">
+            and a.job_name like CONCAT(#{dto.jobName},'%')
+        </if>
+    </select>
 </mapper>

@@ -19,7 +19,7 @@ public class FindSysLoggingListResponseDTO {
     private Long id;
 
     /**
-     * 操作类型 1、添加 2、修改 3、删除 4、查询
+     * 操作类型 1、添加 2、修改 3、删除 4、查询 5：其他操作
      */
     @ApiModelProperty("操作类型 1、添加 2、修改 3、删除 4、查询")
     private Integer actionType;
