@@ -1,6 +1,8 @@
 package com.jintu.safecampus.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindDataRangeByEmployeeIdResponseDTO;
 import com.jintu.safecampus.dal.dao.EmployeeDataRangeMapper;
 import com.jintu.safecampus.dal.model.EmployeeDataRange;
 import com.jintu.safecampus.service.IEmployeeDataRangeService;
@@ -17,4 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeDataRangeServiceImpl extends ServiceImpl<EmployeeDataRangeMapper, EmployeeDataRange> implements IEmployeeDataRangeService {
 
+    @Override
+    public CommonResponseResult<FindDataRangeByEmployeeIdResponseDTO> findDataRangeByEmployeeId(Long employeeId) {
+
+        return null;
+    }
 }

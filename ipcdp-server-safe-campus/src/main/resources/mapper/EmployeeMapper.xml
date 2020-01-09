@@ -2,4 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.EmployeeMapper">
 
+    <select id="findSysResourcesByEmployeeId" resultType="com.jintu.safecampus.dal.model.SchoolSysResources">
+        select d.id,d.parent_id,d.level,d.resource_name,d.resource_path,d.resource_icon,d.remarks
+        from employee_job_relation as a
+                 inner join job_info as b on a.job_info_id = b.id
+                 inner join school_job_resources c on b.id = c.job_info_id
+                 inner join school_sys_resources d on c.school_sys_resources_id = d.id
+        where a.deleted = 0
+            and b.deleted = 0
+            and c.deleted = 0
+            and d.deleted = 0
+            and a.employee_id = #{employeeId}
+        group by d.id
+        order by d.id
+
+    </select>
+    <select id="findEmployeeList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeListResponseDTO">
+        select a.id,a.employee_name,a.gender,GROUP_CONCAT(c.job_name,',') as jobName,a.telephone,a.user_name,a.admin_mark
+        from employee as a
+                 inner join employee_job_relation b on a.id = b.employee_id
+                inner join job_info c on b.job_info_id = c.id
+        where a.deleted = 0
+            and b.deleted = 0
+            and c.deleted = 0
+            and a.id <![CDATA[<>]]> #{dto.userId}
+            and a.unit_info_id = #{dto.unitInfoId}
+        <if test="dto.employeeName != null">
+            and a.employee_name like concat(#{dto.employeeName},'%')
+        </if>
+        <if test="dto.jobInfoId != null">
+            and c.id = #{dto.jobInfoId}
+        </if>
+        group by a.id
+    </select>
 </mapper>

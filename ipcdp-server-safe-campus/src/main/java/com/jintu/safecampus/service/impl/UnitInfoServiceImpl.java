@@ -78,7 +78,7 @@ public class UnitInfoServiceImpl extends ServiceImpl<UnitInfoMapper, UnitInfo> i
         Employee employee = new Employee().setUnitInfoId(unitInfo.getId()).setEmployeeName("管理员")
                 .setUserName(requestDTO.getUserName()).setPassWord(requestDTO.getPassWord()).setAdminMark(true).setCreatedId(requestDTO.getCreatedId());
         employeeMapper.insert(employee);
-        // 如果是学校，就把系统创建的角色给他
+        // 如果是学校，就把系统创建的默认角色给他（默认角色的单位id为1，初始化系统的时候创建的）
         if (unitInfo.getUnitType() == 0){
             JobInfo jobInfo = jobInfoMapper.selectOne(Wrappers.<JobInfo>lambdaQuery().select(JobInfo::getId).eq(JobInfo::getUnitInfoId, 1L));
             if (jobInfo == null) {
