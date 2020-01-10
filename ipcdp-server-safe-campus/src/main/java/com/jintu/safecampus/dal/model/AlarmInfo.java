@@ -39,7 +39,7 @@ public class AlarmInfo implements Serializable {
      * 单位id 单位id
      */
     @TableField("unit_info_id")
-    private String unitInfoId;
+    private Long unitInfoId;
 
     /**
      * 告警时间 告警时间

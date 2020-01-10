@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -19,7 +20,10 @@ public class LocalTimeDeserializer extends JsonDeserializer<LocalTime> {
 
     @Override
     public LocalTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("HH:mm:ss");
+        if (StringUtils.isEmpty(jsonParser.getText())){
+            return null;
+        }
         return LocalTime.parse(jsonParser.getText(),df);
     }
 }

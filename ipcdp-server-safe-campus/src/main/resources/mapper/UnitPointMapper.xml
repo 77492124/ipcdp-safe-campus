@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.UnitPointMapper">
 
+    <select id="findUnitPointList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitPointListResponseDTO">
+        select a.id,a.unit_info_id,a.point_name,a.point_description,a.longitude,a.latitude
+        from unit_point as a
+        where a.deleted = 0
+            and a.unit_info_id = #{dto.unitInfoId}
+    </select>
 </mapper>

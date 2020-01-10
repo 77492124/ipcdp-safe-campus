@@ -1,7 +1,10 @@
 package com.jintu.ipcdp.framework.model.safecampus.dto.response.find;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * @Author Parker
@@ -77,4 +80,11 @@ public class FindSysLoggingListResponseDTO {
      */
     @ApiModelProperty("是否运行错误；0：正常；1：出错；")
     private Boolean errorMark;
+
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private LocalDateTime createdTime;
 }
