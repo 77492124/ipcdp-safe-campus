@@ -14,10 +14,14 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPo
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostTimeRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostTimeListResponseDTO;
 import com.jintu.safecampus.dal.dao.NursingPostTimeMapper;
+import com.jintu.safecampus.dal.dao.PointRequirementsSettingMapper;
 import com.jintu.safecampus.dal.model.NursingPostTime;
+import com.jintu.safecampus.dal.model.PointRequirementsSetting;
 import com.jintu.safecampus.service.INursingPostTimeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -29,6 +33,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class NursingPostTimeServiceImpl extends ServiceImpl<NursingPostTimeMapper, NursingPostTime> implements INursingPostTimeService {
+
+    @Resource
+    private PointRequirementsSettingMapper pointRequirementsSettingMapper;
 
     @Override
     public QueryResponseResult<FindNursingPostTimeListResponseDTO> findNursingPostTimeList(FindNursingPostTimeListRequestDTO requestDTO) {
@@ -70,7 +77,11 @@ public class NursingPostTimeServiceImpl extends ServiceImpl<NursingPostTimeMappe
         if (count > 0) {
             ExceptionCast.cast("该单位护学岗时间不存在！");
         }
-        // TODO: 2020/1/10 该删除逻辑待商榷
+        int settingCount = pointRequirementsSettingMapper.selectCount(Wrappers.<PointRequirementsSetting>lambdaQuery().eq(PointRequirementsSetting::getNursingPostTimeId, nursingPostTimeId));
+        if (settingCount > 0) {
+            ExceptionCast.cast("请先删除该护学岗时间下的点位人员配置！");
+        }
+        this.removeById(nursingPostTimeId);
         return ResponseResult.SUCCESS();
     }
 }

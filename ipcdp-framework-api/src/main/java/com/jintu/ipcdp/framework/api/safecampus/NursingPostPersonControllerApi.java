@@ -32,7 +32,7 @@ public interface NursingPostPersonControllerApi {
      * @return 护学岗人员列表
      */
     @GetMapping("list")
-    QueryResponseResult<FindNursingPostPersonListResponseDTO> findNursingPostPersonList(@Validated @RequestBody FindNursingPostPersonListRequestDTO requestDTO);
+    QueryResponseResult<FindNursingPostPersonListResponseDTO> findNursingPostPersonList(@Validated FindNursingPostPersonListRequestDTO requestDTO);
 
     /**
      * 添加护学岗人员

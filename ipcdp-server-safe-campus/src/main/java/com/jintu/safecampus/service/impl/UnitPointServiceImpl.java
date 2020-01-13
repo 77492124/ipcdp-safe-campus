@@ -13,11 +13,15 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitPoint
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitPointRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitPointListResponseDTO;
+import com.jintu.safecampus.dal.dao.PointRequirementsSettingMapper;
 import com.jintu.safecampus.dal.dao.UnitPointMapper;
+import com.jintu.safecampus.dal.model.PointRequirementsSetting;
 import com.jintu.safecampus.dal.model.UnitPoint;
 import com.jintu.safecampus.service.IUnitPointService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -29,6 +33,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UnitPointServiceImpl extends ServiceImpl<UnitPointMapper, UnitPoint> implements IUnitPointService {
+
+    @Resource
+    private PointRequirementsSettingMapper pointRequirementsSettingMapper;
 
     @Override
     public QueryResponseResult<FindUnitPointListResponseDTO> findUnitPointList(FindUnitPointListRequestDTO requestDTO) {
@@ -69,7 +76,11 @@ public class UnitPointServiceImpl extends ServiceImpl<UnitPointMapper, UnitPoint
         if (count <= 0) {
             ExceptionCast.cast("该点位不存在！");
         }
-        // TODO: 2020/1/10 删除判断条件有待商榷
+        int settingCount = pointRequirementsSettingMapper.selectCount(Wrappers.<PointRequirementsSetting>lambdaQuery().eq(PointRequirementsSetting::getUnitPointId, unitPointId));
+        if (settingCount > 0) {
+            ExceptionCast.cast("请先删除该点位的人员配置！");
+        }
+        this.removeById(unitPointId);
         return ResponseResult.SUCCESS();
     }
 }

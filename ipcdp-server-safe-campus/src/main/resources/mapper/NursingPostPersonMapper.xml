@@ -9,4 +9,12 @@
         where a.deleted = 0
             and a.unit_info_id = #{dto.unitInfoId}
     </select>
+    <select id="findNursingPostPersonLists"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO">
+        select a.id,a.person_name,a.person_type
+        from nursing_post_person as a
+        where a.deleted = 0
+            and a.unit_info_id = #{unitInfoId}
+            and a.person_type = #{personType}
+    </select>
 </mapper>

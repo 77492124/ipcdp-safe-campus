@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.PointRequirementsPersonnelMapper">
 
+    <select id="findShiftSetting"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO">
+        select a.id as nursingPostTimeId,a.time_name,a.unit_info_id,a.starting_time,a.end_time,b.id as pointRequirementsSettingId
+        ,b.unit_point_id,c.point_name,b.person_type,b.number_of_personnel
+        from nursing_post_time as a inner join point_requirements_setting as b on a.id = b.nursing_post_time_id
+            inner join unit_point as c on c.id = b.unit_point_id
+        where a.deleted = 0
+            and b.deleted = 0
+            and a.id = #{nursingPostTimeId}
+    </select>
+    <select id="findPrincipalList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO">
+        select b.id,b.person_name,b.person_type
+        from point_requirements_personnel as a inner join nursing_post_person as b
+            on a.nursing_post_person_id = b.id
+        where a.deleted = 0
+            and a.point_requirements_setting_id = #{id}
+    </select>
 </mapper>

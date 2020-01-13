@@ -32,7 +32,7 @@ public interface NursingPostTimeControllerApi {
      * @return  护学岗时间列表
      */
     @GetMapping("list")
-    QueryResponseResult<FindNursingPostTimeListResponseDTO> findNursingPostTimeList(@Validated @RequestBody FindNursingPostTimeListRequestDTO requestDTO);
+    QueryResponseResult<FindNursingPostTimeListResponseDTO> findNursingPostTimeList(@Validated FindNursingPostTimeListRequestDTO requestDTO);
 
     /**
      * 添加单位护学岗时间
