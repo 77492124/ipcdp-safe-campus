@@ -3,6 +3,7 @@ package com.jintu.safecampus.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
@@ -14,10 +15,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditEmployeeR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.EmployeeLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindEmployeeListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveEmployeeRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.EmployeeLoginResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeByIdResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeListResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolResourcesListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import com.jintu.safecampus.common.util.BusinessUtils;
 import com.jintu.safecampus.dal.dao.EmployeeMapper;
 import com.jintu.safecampus.dal.dao.UnitInfoMapper;
@@ -176,5 +174,27 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         }
         responseDTO.setSchoolSysResources(businessUtils.findChildList(null, list));
         return new CommonResponseResult<>(responseDTO);
+    }
+
+    @Override
+    public CommonResponseResult<SafeEmployeeLoginResponseDTO> safeEmployeeLogin(EmployeeLoginRequestDTO requestDTO) {
+        Employee employee = this.getOne(Wrappers.<Employee>lambdaQuery().eq(Employee::getUserName, requestDTO.getUserName()));
+        if (employee == null) {
+            ExceptionCast.cast("账号不存在！");
+        }
+        if (!requestDTO.getPassWord().equalsIgnoreCase(employee.getPassWord())) {
+            ExceptionCast.cast("账号或密码错误！");
+        }
+        SafeEmployeeLoginResponseDTO responseDTO = new SafeEmployeeLoginResponseDTO();
+        BeanUtils.copyProperties(employee,responseDTO);
+        UnitInfo unitInfo = unitInfoMapper.selectOne(Wrappers.<UnitInfo>lambdaQuery().select(UnitInfo::getUnitName,UnitInfo::getUnitType).eq(UnitInfo::getId, employee.getUnitInfoId()));
+        if (unitInfo == null) {
+            ExceptionCast.cast("该用户工作单位数据异常，请联系管理员！");
+        }
+        if (unitInfo.getUnitType() != 1) {
+            ExceptionCast.cast("账号不存在！");
+        }
+        responseDTO.setUnitInfoName(unitInfo.getUnitName());
+        return new CommonResponseResult<SafeEmployeeLoginResponseDTO>(responseDTO);
     }
 }

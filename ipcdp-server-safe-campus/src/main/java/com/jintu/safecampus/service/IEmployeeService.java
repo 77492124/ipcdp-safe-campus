@@ -8,10 +8,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditEmployeeR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.EmployeeLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindEmployeeListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveEmployeeRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.EmployeeLoginResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeByIdResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeListResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolResourcesListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import com.jintu.safecampus.dal.model.Employee;
 
 /**
@@ -66,4 +63,11 @@ public interface IEmployeeService extends IService<Employee> {
      * @return 权限树
      */
     CommonResponseResult<FindSchoolResourcesListResponseDTO> findSchoolResourcesByEmployeeId(Long employeeId);
+
+    /**
+     * 平安办员工登录
+     * @param requestDTO
+     * @return
+     */
+    CommonResponseResult<SafeEmployeeLoginResponseDTO> safeEmployeeLogin(EmployeeLoginRequestDTO requestDTO);
 }

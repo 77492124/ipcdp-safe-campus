@@ -1,7 +1,12 @@
 package com.jintu.safecampus.dal.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitServerInfoListResponseDTO;
 import com.jintu.safecampus.dal.model.UnitServerInfo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +18,5 @@ import com.jintu.safecampus.dal.model.UnitServerInfo;
  */
 public interface UnitServerInfoMapper extends BaseMapper<UnitServerInfo> {
 
+    IPage<FindUnitServerInfoListResponseDTO> findUnitServerInfoList(Page<FindUnitServerInfoListResponseDTO> page,@Param("requestDTO") FindUnitPointListRequestDTO requestDTO);
 }

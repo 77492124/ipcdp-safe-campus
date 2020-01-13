@@ -9,10 +9,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditEmployeeR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.EmployeeLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindEmployeeListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveEmployeeRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.EmployeeLoginResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeByIdResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeListResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolResourcesListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -55,6 +52,11 @@ public class EmployeeControllerApiFallBack implements EmployeeControllerApi {
 
     @Override
     public CommonResponseResult<FindSchoolResourcesListResponseDTO> findSchoolResourcesByEmployeeId(Long employeeId) {
+        return new CommonResponseResult<>(CommonCode.SERVER_ANOMALY);
+    }
+
+    @Override
+    public CommonResponseResult<SafeEmployeeLoginResponseDTO> safeEmployeeLogin(EmployeeLoginRequestDTO requestDTO) {
         return new CommonResponseResult<>(CommonCode.SERVER_ANOMALY);
     }
 }

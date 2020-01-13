@@ -9,10 +9,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditEmployeeR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.EmployeeLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindEmployeeListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveEmployeeRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.EmployeeLoginResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeByIdResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindEmployeeListResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolResourcesListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -87,7 +84,14 @@ public interface EmployeeControllerApi {
     @GetMapping("findSchoolResources/{employeeId}")
     CommonResponseResult<FindSchoolResourcesListResponseDTO> findSchoolResourcesByEmployeeId(@PathVariable("employeeId") Long employeeId);
 
-    
+    /**
+     * 学校平安办登录
+     * @param requestDTO 登录信息
+     * @return 员工信息
+     */
+    @PostMapping("safeEmployeeLogin")
+    CommonResponseResult<SafeEmployeeLoginResponseDTO> safeEmployeeLogin(@Validated @RequestBody EmployeeLoginRequestDTO requestDTO);
+
 
 
 

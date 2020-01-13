@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jintu.safecampus.dal.dao.UnitServerInfoMapper">
 
+    <select id="findUnitServerInfoList"
+        resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitServerInfoListResponseDTO">
+        SELECT u.id,u.`server_name`,u.`server_type`,u.`ip_address`,u.`port_number`
+        FROM unit_server_info u
+        WHERE u.`deleted`=0
+        AND   u.unit_info_id = #{requestDTO.unitInfoId}
+    </select>
 </mapper>

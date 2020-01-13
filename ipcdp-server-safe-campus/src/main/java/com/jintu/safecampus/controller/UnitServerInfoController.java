@@ -2,9 +2,22 @@ package com.jintu.safecampus.controller;
 
 
 import com.jintu.ipcdp.framework.api.safecampus.UnitServerInfoControllerApi;
+import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitServerInfoRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitServerInfoRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitPointListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitServerInfoListResponseDTO;
+import com.jintu.safecampus.common.annotation.MyLog;
+import com.jintu.safecampus.common.enums.ActionTypeEnum;
+import com.jintu.safecampus.service.IUnitServerInfoService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -19,4 +32,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/unit-server-info")
 public class UnitServerInfoController implements UnitServerInfoControllerApi {
 
+    @Resource
+    private IUnitServerInfoService unitServerInfoService;
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "查询单位服务器列表")
+    @ApiOperation(value = "查询单位服务器列表", response = FindUnitServerInfoListResponseDTO.class)
+    @Override
+    public QueryResponseResult<FindUnitServerInfoListResponseDTO> findUnitServerInfoList(FindUnitPointListRequestDTO requestDTO) {
+        return unitServerInfoService.findUnitServerInfoList(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.SAVE, description = "增加单位服务器")
+    @ApiOperation(value = "增加单位服务器", response = FindUnitServerInfoListResponseDTO.class)
+    @Override
+    public ResponseResult saveUnitServerInfo(SaveUnitServerInfoRequestDTO requestDTO) {
+        return unitServerInfoService.saveUnitServerInfoList(requestDTO);
+    }
+
+    @Override
+    public ResponseResult editUnitServerInfo(EditUnitServerInfoRequestDTO requestDTO) {
+        return null;
+    }
 }
