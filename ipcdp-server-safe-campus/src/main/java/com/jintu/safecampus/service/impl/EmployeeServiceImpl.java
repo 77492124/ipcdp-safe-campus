@@ -67,9 +67,12 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
         }
         EmployeeLoginResponseDTO responseDTO = new EmployeeLoginResponseDTO();
         BeanUtils.copyProperties(employee,responseDTO);
-        UnitInfo unitInfo = unitInfoMapper.selectOne(Wrappers.<UnitInfo>lambdaQuery().select(UnitInfo::getUnitName).eq(UnitInfo::getId, employee.getUnitInfoId()));
+        UnitInfo unitInfo = unitInfoMapper.selectOne(Wrappers.<UnitInfo>lambdaQuery().select(UnitInfo::getUnitName,UnitInfo::getUnitType).eq(UnitInfo::getId, employee.getUnitInfoId()));
         if (unitInfo == null) {
             ExceptionCast.cast("该用户工作单位数据异常，请联系管理员！");
+        }
+        if (unitInfo.getUnitType() != 0) {
+            ExceptionCast.cast("账号不存在！");
         }
         responseDTO.setUnitInfoName(unitInfo.getUnitName());
         List<SchoolSysResources> list = baseMapper.findSysResourcesByEmployeeId(employee.getId());
