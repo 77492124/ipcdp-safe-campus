@@ -41,8 +41,8 @@ public interface IUnitServerInfoService extends IService<UnitServerInfo> {
 
     /**
      * 删除单位服务器
-     * @param unitSserverInfoId 单位服务器id
+     * @param unitServerInfoId 单位服务器id
      * @return
      */
-    ResponseResult delUnitServerInfo(Long unitSserverInfoId);
+    ResponseResult delUnitServerInfo(Long unitServerInfoId);
 }

@@ -5,8 +5,10 @@ import com.jintu.ipcdp.framework.api.safecampus.fallback.UnitCameraListControlle
 import com.jintu.ipcdp.framework.client.JtServiceList;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitCameraRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitPointRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitCameraRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitPointRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitCameraListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitPointListResponseDTO;
@@ -30,27 +32,27 @@ public interface UnitCameraListControllerApi {
     @GetMapping("list")
     QueryResponseResult<FindUnitCameraListResponseDTO> findUnitCameraList(@Validated FindUnitPointListRequestDTO requestDTO);
 
-//    /**
-//     * 添加单位摄像头
-//     * @param requestDTO 单位点位
-//     * @return 是否成功
-//     */
-//    @PostMapping
-//    ResponseResult saveUnitPoint(@Validated @RequestBody SaveUnitPointRequestDTO requestDTO);
-//
-//    /**
-//     * 编辑单位摄像头
-//     * @param requestDTO 单位点位
-//     * @return 是否成功
-//     */
-//    @PutMapping
-//    ResponseResult editUnitPoint(@Validated @RequestBody EditUnitPointRequestDTO requestDTO);
-//
-//    /**
-//     * 删除单位摄像头
-//     * @param unitPointId 单位点位Id
-//     * @return 是否成功
-//     */
-//    @DeleteMapping("{unitPointId}")
-//    ResponseResult delUnitPoint(@PathVariable("unitPointId") Long unitPointId);
+    /**
+     * 添加单位摄像头
+     * @param requestDTO
+     * @return 是否成功
+     */
+    @PostMapping
+    ResponseResult saveUnitCamera(@Validated @RequestBody SaveUnitCameraRequestDTO requestDTO);
+
+    /**
+     * 编辑单位摄像头
+     * @param requestDTO
+     * @return 是否成功
+     */
+    @PutMapping
+    ResponseResult editUnitCamera(@Validated @RequestBody EditUnitCameraRequestDTO requestDTO);
+
+    /**
+     * 删除单位摄像头
+     * @param unitCameraId
+     * @return 是否成功
+     */
+    @DeleteMapping("{unitCameraId}")
+    ResponseResult delUnitCamera(@PathVariable("unitCameraId") Long unitCameraId);
 }

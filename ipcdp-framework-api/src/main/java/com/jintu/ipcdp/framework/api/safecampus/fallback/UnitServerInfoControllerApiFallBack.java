@@ -36,7 +36,7 @@ public class UnitServerInfoControllerApiFallBack implements UnitServerInfoContro
     }
 
     @Override
-    public ResponseResult delUnitServerInfo(Long unitSserverInfoId) {
+    public ResponseResult delUnitServerInfo(Long unitServerInfoId) {
         return ResponseResult.SERVER_ANOMALY();
     }
 

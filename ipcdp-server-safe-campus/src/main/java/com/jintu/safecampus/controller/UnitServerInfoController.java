@@ -59,7 +59,7 @@ public class UnitServerInfoController implements UnitServerInfoControllerApi {
     @MyLog(actionType = ActionTypeEnum.DELETE, description = "删除单位服务器")
     @ApiOperation(value = "删除单位服务器", response = ResponseResult.class)
     @Override
-    public ResponseResult delUnitServerInfo(Long unitSserverInfoId) {
-        return unitServerInfoService.delUnitServerInfo(unitSserverInfoId);
+    public ResponseResult delUnitServerInfo(Long unitServerInfoId) {
+        return unitServerInfoService.delUnitServerInfo(unitServerInfoId);
     }
 }

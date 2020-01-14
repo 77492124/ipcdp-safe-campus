@@ -50,10 +50,10 @@ public interface UnitServerInfoControllerApi {
 
     /**
      * 删除单位服务器
-     * @param unitSserverInfoId 单位点位Id
+     * @param unitServerInfoId 单位点位Id
      * @return 是否成功
      */
     @DeleteMapping("{unitSserverInfoId}")
-    ResponseResult delUnitServerInfo(@PathVariable("unitSserverInfoId") Long unitSserverInfoId);
+    ResponseResult delUnitServerInfo(@PathVariable("unitSserverInfoId") Long unitServerInfoId);
 
 }
