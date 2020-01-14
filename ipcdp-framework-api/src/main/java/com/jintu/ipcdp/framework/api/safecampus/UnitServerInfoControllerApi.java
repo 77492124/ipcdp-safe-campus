@@ -24,8 +24,6 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = JtServiceList.IPCDP_SERVER_SAFE_CAMPUS, path = "/safe-campus/unit-server-info/", fallback = UnitServerInfoControllerApiFallBack.class)
 public interface UnitServerInfoControllerApi {
 
-
-
     /**
      * 查询单位服务器列表
      * @param requestDTO 查询条件
@@ -36,7 +34,7 @@ public interface UnitServerInfoControllerApi {
 
     /**
      * 添加单位服务器
-     * @param requestDTO 单位点位
+     * @param requestDTO
      * @return 是否成功
      */
     @PostMapping
@@ -44,18 +42,18 @@ public interface UnitServerInfoControllerApi {
 
     /**
      * 修改单位服务器
-     * @param requestDTO 单位点位
+     * @param requestDTO
      * @return 是否成功
      */
     @PutMapping
     ResponseResult editUnitServerInfo(@Validated @RequestBody EditUnitServerInfoRequestDTO requestDTO);
-//
-//    /**
-//     * 删除单位点位
-//     * @param unitPointId 单位点位Id
-//     * @return 是否成功
-//     */
-//    @DeleteMapping("{unitPointId}")
-//    ResponseResult delUnitPoint(@PathVariable("unitPointId") Long unitPointId);
+
+    /**
+     * 删除单位服务器
+     * @param unitSserverInfoId 单位点位Id
+     * @return 是否成功
+     */
+    @DeleteMapping("{unitSserverInfoId}")
+    ResponseResult delUnitServerInfo(@PathVariable("unitSserverInfoId") Long unitSserverInfoId);
 
 }

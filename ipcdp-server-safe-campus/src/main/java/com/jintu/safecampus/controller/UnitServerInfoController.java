@@ -43,14 +43,23 @@ public class UnitServerInfoController implements UnitServerInfoControllerApi {
     }
 
     @MyLog(actionType = ActionTypeEnum.SAVE, description = "增加单位服务器")
-    @ApiOperation(value = "增加单位服务器", response = FindUnitServerInfoListResponseDTO.class)
+    @ApiOperation(value = "增加单位服务器", response = ResponseResult.class)
     @Override
     public ResponseResult saveUnitServerInfo(SaveUnitServerInfoRequestDTO requestDTO) {
         return unitServerInfoService.saveUnitServerInfoList(requestDTO);
     }
 
+    @MyLog(actionType = ActionTypeEnum.UPDATE, description = "修改单位服务器")
+    @ApiOperation(value = "修改单位服务器", response = ResponseResult.class)
     @Override
     public ResponseResult editUnitServerInfo(EditUnitServerInfoRequestDTO requestDTO) {
-        return null;
+        return unitServerInfoService.editUnitServerInfo(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.DELETE, description = "删除单位服务器")
+    @ApiOperation(value = "删除单位服务器", response = ResponseResult.class)
+    @Override
+    public ResponseResult delUnitServerInfo(Long unitSserverInfoId) {
+        return unitServerInfoService.delUnitServerInfo(unitSserverInfoId);
     }
 }

@@ -52,13 +52,6 @@ public class SaveUnitServerInfoRequestDTO {
     private String portNumber;
 
     /**
-     * 在线标记 在线标记0：离线；1：在线；
-     */
-    @NotNull(message = "在线标记不能为空")
-    @ApiModelProperty("在线标记0：离线；1：在线 ")
-    private Boolean markOnline;
-
-    /**
      * 创建人id
      */
     @NotNull(message = "创建人id不能为空")

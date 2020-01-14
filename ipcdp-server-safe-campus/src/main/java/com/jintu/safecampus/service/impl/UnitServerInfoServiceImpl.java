@@ -3,12 +3,14 @@ package com.jintu.safecampus.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitServerInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitServerInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitPointListResponseDTO;
@@ -45,11 +47,37 @@ public class UnitServerInfoServiceImpl extends ServiceImpl<UnitServerInfoMapper,
     public ResponseResult saveUnitServerInfoList(SaveUnitServerInfoRequestDTO requestDTO) {
         UnitServerInfo unitServerInfo = new UnitServerInfo();
         BeanUtils.copyProperties(requestDTO,unitServerInfo);
-        unitServerInfo.setCreatedTime(LocalDateTime.now());
-        unitServerInfo.setUpdatedTime(LocalDateTime.now());
         boolean save = this.save(unitServerInfo);
         if(!save){
             ExceptionCast.cast("新增服务器失败");
+        }
+        return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public ResponseResult editUnitServerInfo(EditUnitServerInfoRequestDTO requestDTO) {
+        boolean update = new LambdaUpdateChainWrapper<>(baseMapper)
+                .eq(UnitServerInfo::getUnitInfoId, requestDTO.getId())
+                .set(UnitServerInfo::getServerName, requestDTO.getServerName())
+                .set(UnitServerInfo::getServerType, requestDTO.getServerType())
+                .set(UnitServerInfo::getIpAddress, requestDTO.getIpAddress())
+                .set(UnitServerInfo::getPortNumber, requestDTO.getPortNumber())
+                .update();
+        if(!update){
+            ExceptionCast.cast("修改服务器失败");
+        }
+        return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public ResponseResult delUnitServerInfo(Long unitSserverInfoId) {
+        int count = this.count(Wrappers.<UnitServerInfo>lambdaQuery().eq(UnitServerInfo::getId, unitSserverInfoId));
+        if (count<=0) {
+            ExceptionCast.cast("该服务器不存在！");
+        }
+        boolean b = this.removeById(unitSserverInfoId);
+        if (!b) {
+            ExceptionCast.cast("删除失败");
         }
         return ResponseResult.SUCCESS();
     }

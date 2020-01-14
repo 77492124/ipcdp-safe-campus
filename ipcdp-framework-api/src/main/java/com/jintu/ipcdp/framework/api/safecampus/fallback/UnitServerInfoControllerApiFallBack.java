@@ -5,6 +5,7 @@ import com.jintu.ipcdp.framework.model.response.CommonCode;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitPointRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitServerInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitPointRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitServerInfoRequestDTO;
@@ -30,7 +31,15 @@ public class UnitServerInfoControllerApiFallBack implements UnitServerInfoContro
     }
 
     @Override
-    public ResponseResult editUnitServerInfo(EditUnitPointRequestDTO requestDTO) {
+    public ResponseResult editUnitServerInfo(EditUnitServerInfoRequestDTO requestDTO) {
         return ResponseResult.SERVER_ANOMALY();
     }
+
+    @Override
+    public ResponseResult delUnitServerInfo(Long unitSserverInfoId) {
+        return ResponseResult.SERVER_ANOMALY();
+    }
+
+
+
 }
