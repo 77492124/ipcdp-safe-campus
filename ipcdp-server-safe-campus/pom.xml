@@ -57,14 +57,14 @@
             <version>7.2.28</version>
         </dependency>
         <!--表格导入导出-->
-        <!--<dependency>
+        <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-base</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-annotation</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!--代码生成器begin-->
         <dependency>

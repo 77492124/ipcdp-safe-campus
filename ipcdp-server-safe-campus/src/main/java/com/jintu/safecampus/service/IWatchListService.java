@@ -1,10 +1,13 @@
 package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
+import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
 import com.jintu.safecampus.dal.model.WatchList;
-
-import java.util.List;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * <p>
@@ -19,5 +22,18 @@ public interface IWatchListService extends IService<WatchList> {
      * 保存排班设置
      * @param requestDTO 排班设置
      */
-    void saveShiftSetting(List<SaveShiftSettingRequestDTO> requestDTO);
+    void saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO);
+    /**
+     * 查询值班列表
+     * @param requestDTO 查询条件
+     * @return 值班列表
+     */
+    QueryResponseResult<FindWatchListResponseDTO> findWatchList(FindWatchListRequestDTO requestDTO);
+
+    /**
+     * 导出值班表
+     * @param requestDTO 查询条件
+     * @return  Workbook
+     */
+    Workbook exportWatchList(ExportWatchListRequestDTO requestDTO);
 }

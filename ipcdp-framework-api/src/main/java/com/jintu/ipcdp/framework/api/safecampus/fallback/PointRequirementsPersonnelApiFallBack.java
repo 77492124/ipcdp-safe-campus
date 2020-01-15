@@ -4,11 +4,9 @@ import com.jintu.ipcdp.framework.api.safecampus.PointRequirementsPersonnelContro
 import com.jintu.ipcdp.framework.model.response.CommonCode;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * @Author Parker
@@ -25,7 +23,7 @@ public class PointRequirementsPersonnelApiFallBack implements PointRequirementsP
     }
 
     @Override
-    public ResponseResult saveShiftSetting(List<SaveShiftSettingRequestDTO> requestDTO) {
+    public ResponseResult saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO) {
         return ResponseResult.SERVER_ANOMALY();
     }
 }

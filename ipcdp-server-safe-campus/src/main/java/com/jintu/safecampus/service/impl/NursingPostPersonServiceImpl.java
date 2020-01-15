@@ -14,10 +14,14 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPo
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
+import com.jintu.safecampus.dal.dao.WatchListMapper;
 import com.jintu.safecampus.dal.model.NursingPostPerson;
 import com.jintu.safecampus.service.INursingPostPersonService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -29,6 +33,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class NursingPostPersonServiceImpl extends ServiceImpl<NursingPostPersonMapper, NursingPostPerson> implements INursingPostPersonService {
+
+    @Resource
+    private WatchListMapper watchListMapper;
 
     @Override
     public QueryResponseResult<FindNursingPostPersonListResponseDTO> findNursingPostPersonList(FindNursingPostPersonListRequestDTO requestDTO) {
@@ -69,7 +76,13 @@ public class NursingPostPersonServiceImpl extends ServiceImpl<NursingPostPersonM
         if (count <= 0) {
             ExceptionCast.cast("该护学岗人员不存在！");
         }
-        // TODO: 2020/1/10 删除逻辑有待商榷
+        // 查询删除的人员是否还有值班安排,判断条件为人员是否还有大于等于当天日期的值班
+        LocalDate localDate = LocalDate.now();
+        int countDutyArrangement = watchListMapper.countDutyArrangement(nursingPostPersonId,localDate);
+        if (countDutyArrangement > 0) {
+            ExceptionCast.cast("请先删除该护学岗人员的值班安排！");
+        }
+        this.removeById(nursingPostPersonId);
         return ResponseResult.SUCCESS();
     }
 }

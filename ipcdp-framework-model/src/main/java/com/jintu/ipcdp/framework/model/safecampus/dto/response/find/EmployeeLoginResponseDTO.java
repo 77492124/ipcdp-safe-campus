@@ -3,6 +3,7 @@ package com.jintu.ipcdp.framework.model.safecampus.dto.response.find;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,6 +31,18 @@ public class EmployeeLoginResponseDTO {
      */
     @ApiModelProperty("单位名称")
     private String unitInfoName;
+
+    /**
+     * 经度 经度
+     */
+    @ApiModelProperty("经度")
+    private BigDecimal longitude;
+
+    /**
+     * 纬度 纬度
+     */
+    @ApiModelProperty("纬度")
+    private BigDecimal latitude;
 
     /**
      * 员工姓名 员工姓名

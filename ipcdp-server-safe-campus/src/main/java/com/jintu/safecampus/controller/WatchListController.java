@@ -1,9 +1,25 @@
 package com.jintu.safecampus.controller;
 
 
+import com.jintu.ipcdp.framework.api.safecampus.WatchListControllerApi;
+import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
+import com.jintu.safecampus.common.annotation.MyLog;
+import com.jintu.safecampus.common.enums.ActionTypeEnum;
+import com.jintu.safecampus.service.IWatchListService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.Cleanup;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
 
 /**
  * <p>
@@ -13,8 +29,36 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 常培兵
  * @since 2020-01-06
  */
+@Api(tags = "值班表接口")
 @RestController
 @RequestMapping("/watch-list")
-public class WatchListController {
+public class WatchListController implements WatchListControllerApi {
+
+    @Resource
+    private IWatchListService watchListService;
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "查询值班列表")
+    @ApiOperation(value = "查询值班列表", response = FindWatchListResponseDTO.class)
+    @Override
+    public QueryResponseResult<FindWatchListResponseDTO> findWatchList(FindWatchListRequestDTO requestDTO) {
+        return watchListService.findWatchList(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.OTHER, description = "导出值班表")
+    @ApiOperation(value = "导出值班表")
+    @Override
+    public void exportWatchList(ExportWatchListRequestDTO requestDTO, HttpServletResponse response) throws Exception{
+        Workbook workbook = watchListService.exportWatchList(requestDTO);
+        if (workbook == null){
+            ExceptionCast.cast("生成表格错误！");
+        }
+        @Cleanup OutputStream outputStream = response.getOutputStream();
+        String name = String.format("attachment;fileName=%s%s", System.currentTimeMillis(), ".xlsx");
+        // 配置文件下载
+        response.setContentType("application/octet-stream");
+        response.addHeader("Content-Disposition", name);
+        workbook.write(outputStream);
+    }
+
 
 }

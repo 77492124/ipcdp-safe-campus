@@ -3,11 +3,9 @@ package com.jintu.safecampus.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
 import com.jintu.safecampus.dal.model.PointRequirementsPersonnel;
-
-import java.util.List;
 
 /**
  * <p>
@@ -29,5 +27,5 @@ public interface IPointRequirementsPersonnelService extends IService<PointRequir
      * @param requestDTO 排班信息
      * @return 是否成功
      */
-    ResponseResult saveShiftSetting(List<SaveShiftSettingRequestDTO> requestDTO);
+    ResponseResult saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO);
 }

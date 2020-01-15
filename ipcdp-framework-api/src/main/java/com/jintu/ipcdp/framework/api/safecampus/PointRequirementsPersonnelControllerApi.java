@@ -4,7 +4,7 @@ import com.jintu.ipcdp.framework.api.safecampus.fallback.PointRequirementsPerson
 import com.jintu.ipcdp.framework.client.JtServiceList;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
 
 /**
  * @Author Parker
@@ -38,7 +36,7 @@ public interface PointRequirementsPersonnelControllerApi {
      * @return 是否成功
      */
     @PostMapping("saveShiftSetting")
-    ResponseResult saveShiftSetting(@Validated @RequestBody List<SaveShiftSettingRequestDTO> requestDTO);
+    ResponseResult saveShiftSetting(@Validated @RequestBody SaveShiftSettingBaseRequestDTO requestDTO);
 
 
 

@@ -6,6 +6,7 @@ import com.jintu.ipcdp.framework.exception.ExceptionCast;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
@@ -47,6 +48,7 @@ public class PointRequirementsPersonnelServiceImpl extends ServiceImpl<PointRequ
     public QueryResponseResult<FindShiftSettingResponseDTO> findShiftSetting(Long nursingPostTimeId) {
         List<FindShiftSettingResponseDTO> list = baseMapper.findShiftSetting(nursingPostTimeId);
         if (!list.isEmpty()) {
+            // 此处可以优化为一对多查询
             for (FindShiftSettingResponseDTO findShiftSettingResponseDTO : list) {
                 // 查询每个需求的负责人列表
                 findShiftSettingResponseDTO.setPrincipals(baseMapper.findPrincipalList(findShiftSettingResponseDTO.getPointRequirementsSettingId()));
@@ -60,15 +62,14 @@ public class PointRequirementsPersonnelServiceImpl extends ServiceImpl<PointRequ
 
     @Override
     @Transactional(rollbackFor = {Exception.class})
-    public ResponseResult saveShiftSetting(List<SaveShiftSettingRequestDTO> requestDTO) {
-        PointRequirementsSetting setting = null;
+    public ResponseResult saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO) {
         List<PointRequirementsPersonnel> insertPersonnel = null;
-        for (SaveShiftSettingRequestDTO settingRequestDTO : requestDTO) {
-            setting = pointRequirementsSettingMapper.selectById(settingRequestDTO.getPointRequirementsSettingId());
+        for (SaveShiftSettingRequestDTO shiftSetting : requestDTO.getShiftSettings()) {
+            PointRequirementsSetting setting = pointRequirementsSettingMapper.selectById(shiftSetting.getPointRequirementsSettingId());
             if (setting == null) {
-                ExceptionCast.cast("岗位需求错误");
+                ExceptionCast.cast("查询需求为空错误！");
             }
-            if (settingRequestDTO.getNursingPostPersonIds().size() > setting.getNumberOfPersonnel()) {
+            if (shiftSetting.getNursingPostPersonIds().size() > setting.getNumberOfPersonnel()) {
                 ExceptionCast.cast("所选护学岗人员数量不能超出配置数量！");
             }
             // 先删除之前的
@@ -76,11 +77,11 @@ public class PointRequirementsPersonnelServiceImpl extends ServiceImpl<PointRequ
                     .eq(PointRequirementsPersonnel::getPointRequirementsSettingId,setting.getId()));
             insertPersonnel = new ArrayList<>();
             // 再把这次分配的人添加到点位需求人员列表
-            for (Long nursingPostPersonId : settingRequestDTO.getNursingPostPersonIds()) {
+            for (Long nursingPostPersonId : shiftSetting.getNursingPostPersonIds()) {
                 insertPersonnel.add(new PointRequirementsPersonnel()
                         .setNursingPostPersonId(nursingPostPersonId)
                         .setPointRequirementsSettingId(setting.getId())
-                        .setCreatedId(settingRequestDTO.getCreatedId()));
+                        .setCreatedId(requestDTO.getCreatedId()));
             }
             this.saveBatch(insertPersonnel);
         }

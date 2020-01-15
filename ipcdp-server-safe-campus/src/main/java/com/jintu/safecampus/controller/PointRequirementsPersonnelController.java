@@ -4,7 +4,7 @@ package com.jintu.safecampus.controller;
 import com.jintu.ipcdp.framework.api.safecampus.PointRequirementsPersonnelControllerApi;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
-import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -43,7 +42,7 @@ public class PointRequirementsPersonnelController implements PointRequirementsPe
     @MyLog(actionType = ActionTypeEnum.SAVE, description = "保存排班设置")
     @ApiOperation(value = "保存排班设置", response = ResponseResult.class)
     @Override
-    public ResponseResult saveShiftSetting(List<SaveShiftSettingRequestDTO> requestDTO) {
+    public ResponseResult saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO) {
         return pointRequirementsPersonnelService.saveShiftSetting(requestDTO);
     }
 }
