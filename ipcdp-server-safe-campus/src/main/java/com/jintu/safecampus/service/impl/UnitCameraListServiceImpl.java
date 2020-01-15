@@ -1,10 +1,28 @@
 package com.jintu.safecampus.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.QueryResult;
+import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitCameraRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitPointListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitCameraRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitCameraListResponseDTO;
 import com.jintu.safecampus.dal.dao.UnitCameraListMapper;
+import com.jintu.safecampus.dal.dao.UnitInfoMapper;
 import com.jintu.safecampus.dal.model.UnitCameraList;
+import com.jintu.safecampus.dal.model.UnitInfo;
 import com.jintu.safecampus.service.IUnitCameraListService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
