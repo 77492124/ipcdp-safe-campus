@@ -16,11 +16,15 @@ import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.UnitPointListDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
 import com.jintu.safecampus.common.dto.response.ExportWatchListDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
 import com.jintu.safecampus.dal.dao.PointRequirementsSettingMapper;
@@ -36,10 +40,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -169,4 +175,25 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
         responseDTO.setPrincipals(baseMapper.findPrincipals(watchListId));
         return new CommonResponseResult<>(responseDTO);
     }
+
+    @Override
+    public CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        //查询当前时刻要上班的点位列表
+        List<UnitPointListDTO> pointList = baseMapper.findUnitPointList(requestDTO.getUnitInfoId(),localDateTime.toLocalTime());
+        // 查询当前上班人员列表
+        List<WorkInRealTimeStaffDTO> workInRealTimeStaffList = baseMapper.findWorkInRealTimeStaff(requestDTO.getUnitInfoId(),localDateTime.toLocalDate(),localDateTime.toLocalTime());
+        // 根据点位分组
+        Map<Long, List<WorkInRealTimeStaffDTO>> collect = workInRealTimeStaffList.stream().filter(WorkInRealTimeStaffDTO::getPostStatus).collect(Collectors.groupingBy(WorkInRealTimeStaffDTO::getUnitPointId));
+        for (UnitPointListDTO unitPointListDTO : pointList) {
+            List<WorkInRealTimeStaffDTO> workInRealTimeStaffs = collect.get(unitPointListDTO.getId());
+            // 加入在岗人员数量
+            unitPointListDTO.setNumberOfEmployees(workInRealTimeStaffs == null ? 0 : workInRealTimeStaffs.size());
+        }
+        FindWorkInRealTimeStaffResponseDTO responseDTO = new FindWorkInRealTimeStaffResponseDTO();
+        responseDTO.setPointList(pointList);
+        responseDTO.setWorkInRealTimeStaffList(workInRealTimeStaffList);
+        return new CommonResponseResult<>(responseDTO);
+    }
+
 }

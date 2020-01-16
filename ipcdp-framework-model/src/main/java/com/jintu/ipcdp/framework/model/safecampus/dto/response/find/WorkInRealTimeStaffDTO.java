@@ -37,8 +37,8 @@ public class WorkInRealTimeStaffDTO {
     private String pointName;
 
     /**
-     * 值班状态
+     * 在岗状态 0：脱岗；1：在岗；
      */
-    @ApiModelProperty("值班状态")
-    private Boolean dutyStatus;
+    @ApiModelProperty("在岗状态 0：脱岗；1：在岗；")
+    private Boolean postStatus;
 }

@@ -80,9 +80,11 @@ public class WatchListController implements WatchListControllerApi {
         return watchListService.findWatchListById(watchListId);
     }
 
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "护学岗管理展现页")
+    @ApiOperation(value = "护学岗管理展现页", response = FindWorkInRealTimeStaffResponseDTO.class)
     @Override
     public CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
-        return null;
+        return watchListService.findWorkInRealTimeStaffList(requestDTO);
     }
 
 

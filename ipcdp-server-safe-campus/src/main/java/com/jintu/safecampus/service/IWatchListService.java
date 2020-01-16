@@ -7,9 +7,11 @@ import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
 import com.jintu.safecampus.dal.model.WatchList;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -52,4 +54,10 @@ public interface IWatchListService extends IService<WatchList> {
      * @return 详情
      */
     CommonResponseResult<FindWatchListByIdResponseDTO> findWatchListById(Long watchListId);
+    /**
+     * 护学岗管理展现页
+     * @param requestDTO 查询条件
+     * @return 展示数据
+     */
+    CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(FindWorkInRealTimeStaffListRequestDTO requestDTO);
 }

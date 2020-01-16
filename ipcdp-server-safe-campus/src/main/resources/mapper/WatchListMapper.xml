@@ -69,4 +69,34 @@
         and b.deleted = 0
         and a.watch_list_id = #{watchListId}
     </select>
+    <select id="findUnitPointList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.UnitPointListDTO">
+        select c.id,c.point_name,c.point_description,c.longitude,c.latitude,0 as numberOfEmployees
+        from nursing_post_time as a inner join point_requirements_setting as b on a.id = b.nursing_post_time_id
+            inner join unit_point as c on c.id = b.unit_point_id
+        where a.deleted = 0
+            and b.deleted = 0
+            and c.deleted = 0
+            and c.unit_info_id = #{unitInfoId}
+            and #{localTime} >= a.starting_time
+            and #{localTime} <![CDATA[<=]]> a.end_time
+        group by c.id
+    </select>
+    <select id="findWorkInRealTimeStaff"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO">
+        select d.person_name,d.person_type,a.unit_point_id,e.point_name,d.post_status
+        from watch_list as a inner join nursing_post_time as b on a.nursing_post_time_id = b.id
+            inner join watch_personnel_list as c on a.id = c.watch_list_id
+            inner join nursing_post_person as d on c.nursing_post_person_id = d.id
+            inner join unit_point as e on a.unit_point_id = e.id
+        where a.deleted = 0
+            and b.deleted = 0
+            and c.deleted = 0
+            and d.deleted = 0
+            and e.deleted = 0
+            and a.unit_info_id = #{unitInfoId}
+            and a.working_date = #{toLocalDate}
+            and #{toLocalTime} >= b.starting_time
+            and #{toLocalTime} <![CDATA[<=]]> b.end_time
+    </select>
 </mapper>
