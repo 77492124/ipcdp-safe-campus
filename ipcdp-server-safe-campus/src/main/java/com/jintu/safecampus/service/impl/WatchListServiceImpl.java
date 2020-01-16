@@ -17,18 +17,13 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchList
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostTaskRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.UnitPointListDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import com.jintu.safecampus.common.dto.response.ExportWatchListDTO;
-import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
-import com.jintu.safecampus.dal.dao.PointRequirementsSettingMapper;
-import com.jintu.safecampus.dal.dao.WatchListMapper;
+import com.jintu.safecampus.dal.dao.*;
+import com.jintu.safecampus.dal.model.NursingPostTime;
 import com.jintu.safecampus.dal.model.PointRequirementsSetting;
 import com.jintu.safecampus.dal.model.WatchList;
 import com.jintu.safecampus.dal.model.WatchPersonnelList;
@@ -41,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -67,6 +63,8 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
     @Resource
     private NursingPostPersonMapper nursingPostPersonMapper;
 
+    @Resource
+    private NursingPostTimeMapper nursingPostTimeMapper;
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public void saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO) {
@@ -194,6 +192,25 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
         responseDTO.setPointList(pointList);
         responseDTO.setWorkInRealTimeStaffList(workInRealTimeStaffList);
         return new CommonResponseResult<>(responseDTO);
+    }
+
+    @Override
+    public QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(NursingPostTaskRequestDTO requestDTO) {
+
+       List<NursingPostTaskResponseDTO> list =baseMapper.findNursingPostTask(requestDTO);
+
+       list.forEach(one->{
+            Long nursingPostTimeId = one.getNursingPostTimeId();
+            NursingPostTime nursingPostTime = nursingPostTimeMapper.selectById(nursingPostTimeId);
+
+            one.setStartingTime(nursingPostTime.getStartingTime());
+            one.setEndTime(nursingPostTime.getEndTime());
+            one.setTimeName(nursingPostTime.getTimeName());
+
+        });
+        QueryResult<NursingPostTaskResponseDTO> result = new QueryResult<NursingPostTaskResponseDTO>(list,null);
+        QueryResponseResult<NursingPostTaskResponseDTO> objectQueryResponseResult = new QueryResponseResult<NursingPostTaskResponseDTO>(result);
+        return objectQueryResponseResult;
     }
 
 }

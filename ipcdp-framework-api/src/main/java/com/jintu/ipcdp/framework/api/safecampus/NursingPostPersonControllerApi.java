@@ -2,12 +2,15 @@ package com.jintu.ipcdp.framework.api.safecampus;
 
 import com.jintu.ipcdp.framework.api.safecampus.fallback.NursingPostPersonControllerApiFallBack;
 import com.jintu.ipcdp.framework.client.JtServiceList;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,4 +60,12 @@ public interface NursingPostPersonControllerApi {
      */
     @DeleteMapping("{nursingPostPersonId}")
     ResponseResult delNursingPostPerson(@PathVariable("nursingPostPersonId") Long nursingPostPersonId);
+
+    /**
+     * 护学岗登录
+     * @param requestDTO
+     * @return
+     */
+    @PostMapping("nursingPostPersonLogin")
+    CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(@Validated @RequestBody NursingPostPersonLoginRequestDTO requestDTO);
 }

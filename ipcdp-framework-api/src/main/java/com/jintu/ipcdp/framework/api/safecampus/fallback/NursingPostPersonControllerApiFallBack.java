@@ -2,12 +2,15 @@ package com.jintu.ipcdp.framework.api.safecampus.fallback;
 
 import com.jintu.ipcdp.framework.api.safecampus.NursingPostPersonControllerApi;
 import com.jintu.ipcdp.framework.model.response.CommonCode;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,5 +39,10 @@ public class NursingPostPersonControllerApiFallBack implements NursingPostPerson
     @Override
     public ResponseResult delNursingPostPerson(Long nursingPostPersonId) {
         return ResponseResult.SERVER_ANOMALY();
+    }
+
+    @Override
+    public CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(NursingPostPersonLoginRequestDTO requestDTO) {
+        return CommonResponseResult.SERVER_ANOMALY();
     }
 }

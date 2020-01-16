@@ -2,17 +2,21 @@ package com.jintu.safecampus.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
 import com.jintu.safecampus.dal.dao.WatchListMapper;
 import com.jintu.safecampus.dal.model.NursingPostPerson;
@@ -84,5 +88,19 @@ public class NursingPostPersonServiceImpl extends ServiceImpl<NursingPostPersonM
         }
         this.removeById(nursingPostPersonId);
         return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(NursingPostPersonLoginRequestDTO requestDTO) {
+        NursingPostPerson nursingPostPerson = this.getOne(Wrappers.<NursingPostPerson>lambdaQuery().eq(NursingPostPerson::getUserName, requestDTO.getUserName()));
+        if(ObjectUtils.isEmpty(nursingPostPerson)){
+            ExceptionCast.cast("账号不存在！");
+        }
+        if(!requestDTO.getPassWord().equalsIgnoreCase(nursingPostPerson.getPassWord())){
+            ExceptionCast.cast("账号或密码错误！");
+        }
+        NursingPostPersonLoginResponseDTO nursingPostPersonLoginResponseDTO = new NursingPostPersonLoginResponseDTO();
+        BeanUtils.copyProperties(nursingPostPerson,nursingPostPersonLoginResponseDTO);
+        return new CommonResponseResult<>(nursingPostPersonLoginResponseDTO);
     }
 }

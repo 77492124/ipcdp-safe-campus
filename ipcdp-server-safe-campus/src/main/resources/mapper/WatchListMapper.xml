@@ -99,4 +99,17 @@
             and #{toLocalTime} >= b.starting_time
             and #{toLocalTime} <![CDATA[<=]]> b.end_time
     </select>
+    <select id="findNursingPostTask"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostTaskResponseDTO">
+        SELECT wl.id as watchListId,
+            wl.nursing_post_time_id,
+            wl.unit_point_id
+        FROM watch_list wl,watch_personnel_list wpl
+        WHERE wl.`id`=wpl.`watch_list_id`
+        AND DATE_FORMAT(wl.working_date,'%Y-%m-%d')=#{requestDTO.workingDate}
+        AND wl.`unit_info_id`=#{requestDTO.unitInfoId}
+        AND wpl.`nursing_post_person_id`=#{requestDTO.nursingPostPersonId}
+        AND wl.deleted = 0
+        AND wpl.deleted = 0
+    </select>
 </mapper>

@@ -8,10 +8,12 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchList
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostTaskRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostTaskResponseDTO;
 import com.jintu.safecampus.dal.model.WatchList;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -60,4 +62,11 @@ public interface IWatchListService extends IService<WatchList> {
      * @return 展示数据
      */
     CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(FindWorkInRealTimeStaffListRequestDTO requestDTO);
+
+    /**
+     * 护学岗APP任务查询
+     * @param requestDTO
+     * @return
+     */
+    QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(NursingPostTaskRequestDTO requestDTO);
 }

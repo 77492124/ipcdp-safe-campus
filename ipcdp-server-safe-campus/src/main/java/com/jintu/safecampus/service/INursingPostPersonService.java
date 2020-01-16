@@ -1,12 +1,15 @@
 package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
 import com.jintu.safecampus.dal.model.NursingPostPerson;
 
 /**
@@ -42,4 +45,11 @@ public interface INursingPostPersonService extends IService<NursingPostPerson> {
      * @return 是否成功
      */
     ResponseResult delNursingPostPerson(Long nursingPostPersonId);
+
+    /**
+     * 护学岗人员APP登录
+     * @param requestDTO
+     * @return
+     */
+    CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(NursingPostPersonLoginRequestDTO requestDTO);
 }

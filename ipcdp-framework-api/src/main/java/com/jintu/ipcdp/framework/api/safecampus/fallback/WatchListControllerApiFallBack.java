@@ -9,9 +9,11 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchList
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostTaskRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostTaskResponseDTO;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
@@ -47,5 +49,10 @@ public class WatchListControllerApiFallBack implements WatchListControllerApi {
     @Override
     public CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
         return new CommonResponseResult<>(CommonCode.SERVER_ANOMALY);
+    }
+
+    @Override
+    public QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(NursingPostTaskRequestDTO requestDTO) {
+        return QueryResponseResult.SERVER_ANOMALY();
     }
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.jintu.safecampus.dal.dao.UnitCameraListMapper">
     <select id="findUnitCameraList"
         resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitCameraListResponseDTO"    >
-        SELECT u.`id`,u.`camera_name`,u.`camera_type`,u.`longitude`,u.`latitude`,u.`threshold`
+        SELECT u.`id`,u.`camera_name`,u.`camera_type`,u.`longitude`,u.`latitude`,u.`mark_online`
         FROM unit_camera_list u
         WHERE u.`deleted`=0
         AND u.`unit_info_id`= #{requestDTO.unitInfoId}

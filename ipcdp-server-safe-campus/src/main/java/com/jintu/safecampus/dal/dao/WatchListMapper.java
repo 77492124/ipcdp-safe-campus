@@ -5,11 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.UnitPointListDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostTaskRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import com.jintu.safecampus.common.dto.response.ExportPrincipal;
 import com.jintu.safecampus.common.dto.response.ExportWatchListDTO;
 import com.jintu.safecampus.dal.model.WatchList;
@@ -96,4 +93,11 @@ public interface WatchListMapper extends BaseMapper<WatchList> {
      * @return 护学岗人员列表
      */
     List<WorkInRealTimeStaffDTO> findWorkInRealTimeStaff(@Param("unitInfoId") Long unitInfoId, @Param("toLocalDate") LocalDate toLocalDate, @Param("toLocalTime") LocalTime toLocalTime);
+
+    /**
+     * 查询护学岗APP任务
+     * @param requestDTO
+     * @return
+     */
+    List<NursingPostTaskResponseDTO> findNursingPostTask(@Param("requestDTO") NursingPostTaskRequestDTO requestDTO);
 }

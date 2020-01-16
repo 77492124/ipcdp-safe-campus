@@ -2,12 +2,15 @@ package com.jintu.safecampus.controller;
 
 
 import com.jintu.ipcdp.framework.api.safecampus.NursingPostPersonControllerApi;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
 import com.jintu.safecampus.service.INursingPostPersonService;
@@ -60,5 +63,12 @@ public class NursingPostPersonController implements NursingPostPersonControllerA
     @Override
     public ResponseResult delNursingPostPerson(Long nursingPostPersonId) {
         return nursingPostPersonService.delNursingPostPerson(nursingPostPersonId);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "护学岗人员APP登录")
+    @ApiOperation(value = "护学岗人员APP登录", response = NursingPostPersonLoginResponseDTO.class)
+    @Override
+    public CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(NursingPostPersonLoginRequestDTO requestDTO) {
+        return nursingPostPersonService.nursingPostPersonLogin(requestDTO);
     }
 }

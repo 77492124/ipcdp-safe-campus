@@ -45,10 +45,10 @@ public class FindUnitCameraListResponseDTO {
     private BigDecimal latitude;
 
     /**
-     * 阈值 阈值
+     * 在线标记 在线标记0：离线；1：在线；
      */
-    @ApiModelProperty("阈值")
-    private BigDecimal threshold;
+    @ApiModelProperty("在线标记0：离线；1：在线")
+    private Boolean markOnline;
 
 
 

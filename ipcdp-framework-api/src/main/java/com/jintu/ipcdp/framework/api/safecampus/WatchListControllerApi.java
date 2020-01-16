@@ -9,15 +9,14 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchList
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostTaskRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostTaskResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -69,4 +68,12 @@ public interface WatchListControllerApi {
      */
     @GetMapping("findWorkInRealTimeStaffList")
     CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(@Validated FindWorkInRealTimeStaffListRequestDTO requestDTO);
+
+    /**
+     * 护学岗APP任务查询
+     * @param requestDTO
+     * @return
+     */
+    @PostMapping("findNursingPostTask")
+    QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(@Validated @RequestBody NursingPostTaskRequestDTO requestDTO);
 }
