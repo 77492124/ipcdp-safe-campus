@@ -61,4 +61,12 @@
             and b.deleted = 0
             and a.watch_list_id = #{id}
     </select>
+    <select id="findPrincipals"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO">
+        select b.id,b.person_name,b.person_type
+        from watch_personnel_list as a inner join nursing_post_person as b on a.nursing_post_person_id = b.id
+        where a.deleted = 0
+        and b.deleted = 0
+        and a.watch_list_id = #{watchListId}
+    </select>
 </mapper>

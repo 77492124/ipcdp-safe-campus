@@ -20,4 +20,13 @@
         where a.deleted = 0
             and a.point_requirements_setting_id = #{id}
     </select>
+    <select id="findPointDutyDates" resultType="java.time.LocalDate">
+        select a.working_date
+        from watch_list as a
+        where a.deleted = 0
+            and a.nursing_post_time_id = #{dto.nursingPostTimeId}
+            and a.working_date >= #{dto.beginDate}
+            and a.working_date <![CDATA[<=]]> #{dto.endDate}
+        group by a.working_date
+    </select>
 </mapper>

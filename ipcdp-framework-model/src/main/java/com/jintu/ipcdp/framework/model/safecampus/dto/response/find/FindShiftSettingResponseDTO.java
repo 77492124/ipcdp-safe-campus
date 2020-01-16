@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -86,13 +85,6 @@ public class FindShiftSettingResponseDTO {
      */
     @ApiModelProperty("负责人列表")
     List<FindShiftSettingDTO> principals;
-
-    /**
-     * 点位值班日期
-     */
-    @ApiModelProperty("点位值班日期")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    List<LocalDate> pointDutyDates;
 
 
     /**

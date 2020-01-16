@@ -1,12 +1,11 @@
 package com.jintu.ipcdp.framework.model.safecampus.dto.request.find;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.jintu.ipcdp.framework.model.BaseRequest;
-import com.jintu.ipcdp.framework.util.LocalDateDeserializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -43,6 +42,6 @@ public class FindSysLoggingListRequestDTO extends BaseRequest {
      * 创建时间 创建时间
      */
     @ApiModelProperty("创建日期 yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate createdTime;
 }

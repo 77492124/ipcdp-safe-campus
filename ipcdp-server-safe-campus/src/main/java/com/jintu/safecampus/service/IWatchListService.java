@@ -1,10 +1,14 @@
 package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
 import com.jintu.safecampus.dal.model.WatchList;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -36,4 +40,16 @@ public interface IWatchListService extends IService<WatchList> {
      * @return  Workbook
      */
     Workbook exportWatchList(ExportWatchListRequestDTO requestDTO);
+    /**
+     * 编辑值班列表
+     * @param requestDTO 值班信息
+     * @return 是否成功
+     */
+    ResponseResult editWatchList(EditWatchListRequestDTO requestDTO);
+    /**
+     * 根据值班id查询编辑详情
+     * @param watchListId 值班id
+     * @return 详情
+     */
+    CommonResponseResult<FindWatchListByIdResponseDTO> findWatchListById(Long watchListId);
 }

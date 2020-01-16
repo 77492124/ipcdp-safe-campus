@@ -2,14 +2,14 @@ package com.jintu.ipcdp.framework.api.safecampus;
 
 import com.jintu.ipcdp.framework.api.safecampus.fallback.PointRequirementsPersonnelApiFallBack;
 import com.jintu.ipcdp.framework.client.JtServiceList;
-import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindShiftSettingRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingBaseResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,11 +24,11 @@ public interface PointRequirementsPersonnelControllerApi {
 
     /**
      * 根据护学岗时间id查询排班列表
-     * @param nursingPostTimeId 护学岗时间id
+     * @param requestDTO 护学岗时间id
      * @return  排班列表
      */
-    @GetMapping("findShiftSetting/{nursingPostTimeId}")
-    QueryResponseResult<FindShiftSettingResponseDTO> findShiftSetting(@PathVariable("nursingPostTimeId") Long nursingPostTimeId);
+    @GetMapping("findShiftSetting")
+    CommonResponseResult<FindShiftSettingBaseResponseDTO> findShiftSetting(@Validated FindShiftSettingRequestDTO requestDTO);
 
     /**
      * 保存排班设置

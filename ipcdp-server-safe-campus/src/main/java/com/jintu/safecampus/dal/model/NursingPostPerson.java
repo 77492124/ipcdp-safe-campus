@@ -1,16 +1,16 @@
 package com.jintu.safecampus.dal.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 常培兵
- * @since 2020-01-06
+ * @since 2020-01-16
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -81,6 +81,18 @@ public class NursingPostPerson implements Serializable {
      */
     @TableField("wear_mark")
     private Boolean wearMark;
+
+    /**
+     * 在岗状态 0：脱岗；1：在岗；
+     */
+    @TableField("post_status")
+    private Boolean postStatus;
+
+    /**
+     * 上班状态 0：下班；1：上班；
+     */
+    @TableField("work_status")
+    private Boolean workStatus;
 
     /**
      * 创建人id 创建人id（员工id）

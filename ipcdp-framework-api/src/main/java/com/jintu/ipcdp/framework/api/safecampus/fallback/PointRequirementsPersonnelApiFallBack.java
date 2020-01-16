@@ -2,10 +2,11 @@ package com.jintu.ipcdp.framework.api.safecampus.fallback;
 
 import com.jintu.ipcdp.framework.api.safecampus.PointRequirementsPersonnelControllerApi;
 import com.jintu.ipcdp.framework.model.response.CommonCode;
-import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindShiftSettingRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingBaseResponseDTO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,8 +19,8 @@ import org.springframework.stereotype.Component;
 public class PointRequirementsPersonnelApiFallBack implements PointRequirementsPersonnelControllerApi {
 
     @Override
-    public QueryResponseResult<FindShiftSettingResponseDTO> findShiftSetting(Long nursingPostTimeId) {
-        return new QueryResponseResult<>(CommonCode.SERVER_ANOMALY);
+    public CommonResponseResult<FindShiftSettingBaseResponseDTO> findShiftSetting(FindShiftSettingRequestDTO requestDTO) {
+        return new CommonResponseResult<>(CommonCode.SERVER_ANOMALY);
     }
 
     @Override

@@ -3,10 +3,16 @@ package com.jintu.safecampus.controller;
 
 import com.jintu.ipcdp.framework.api.safecampus.WatchListControllerApi;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
 import com.jintu.safecampus.service.IWatchListService;
@@ -58,6 +64,25 @@ public class WatchListController implements WatchListControllerApi {
         response.setContentType("application/octet-stream");
         response.addHeader("Content-Disposition", name);
         workbook.write(outputStream);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.UPDATE, description = "编辑值班列表")
+    @ApiOperation(value = "编辑值班列表", response = ResponseResult.class)
+    @Override
+    public ResponseResult editWatchList(EditWatchListRequestDTO requestDTO) {
+        return watchListService.editWatchList(requestDTO);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.UPDATE, description = "根据值班id查询编辑详情")
+    @ApiOperation(value = "根据值班id查询编辑详情", response = FindWatchListByIdResponseDTO.class)
+    @Override
+    public CommonResponseResult<FindWatchListByIdResponseDTO> findWatchListById(Long watchListId) {
+        return watchListService.findWatchListById(watchListId);
+    }
+
+    @Override
+    public CommonResponseResult<FindWorkInRealTimeStaffResponseDTO> findWorkInRealTimeStaffList(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
+        return null;
     }
 
 

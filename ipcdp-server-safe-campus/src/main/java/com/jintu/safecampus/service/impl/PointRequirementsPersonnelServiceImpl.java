@@ -3,11 +3,12 @@ package com.jintu.safecampus.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
-import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
-import com.jintu.ipcdp.framework.model.response.QueryResult;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindShiftSettingRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingBaseResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingResponseDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
 import com.jintu.safecampus.dal.dao.PointRequirementsPersonnelMapper;
@@ -45,19 +46,24 @@ public class PointRequirementsPersonnelServiceImpl extends ServiceImpl<PointRequ
 
 
     @Override
-    public QueryResponseResult<FindShiftSettingResponseDTO> findShiftSetting(Long nursingPostTimeId) {
-        List<FindShiftSettingResponseDTO> list = baseMapper.findShiftSetting(nursingPostTimeId);
-        if (!list.isEmpty()) {
-            // 此处可以优化为一对多查询
+    public CommonResponseResult<FindShiftSettingBaseResponseDTO> findShiftSetting(FindShiftSettingRequestDTO requestDTO) {
+        FindShiftSettingBaseResponseDTO baseResponseDTO = new FindShiftSettingBaseResponseDTO();
+        List<FindShiftSettingResponseDTO> list = baseMapper.findShiftSetting(requestDTO.getNursingPostTimeId());
+        // 此处可以优化为一对多查询
+        for (FindShiftSettingResponseDTO findShiftSettingResponseDTO : list) {
+            // 查询每个需求的负责人列表
+            findShiftSettingResponseDTO.setPrincipals(baseMapper.findPrincipalList(findShiftSettingResponseDTO.getPointRequirementsSettingId()));
+        }
+        // 是编辑活新增回显查询
+        if (requestDTO.getBeginDate() != null && requestDTO.getEndDate() != null) {
             for (FindShiftSettingResponseDTO findShiftSettingResponseDTO : list) {
-                // 查询每个需求的负责人列表
-                findShiftSettingResponseDTO.setPrincipals(baseMapper.findPrincipalList(findShiftSettingResponseDTO.getPointRequirementsSettingId()));
                 // 查询每个需求需要的护学岗员工列表
                 findShiftSettingResponseDTO.setNursingPostPersons(nursingPostPersonMapper.findNursingPostPersonLists(findShiftSettingResponseDTO.getUnitInfoId(),findShiftSettingResponseDTO.getPersonType()));
             }
+            baseResponseDTO.setPointDutyDates(baseMapper.findPointDutyDates(requestDTO));
         }
-        QueryResult<FindShiftSettingResponseDTO> queryResult = new QueryResult<>(list,(long)list.size());
-        return new QueryResponseResult<>(queryResult);
+        baseResponseDTO.setSettingResponseList(list);
+        return new CommonResponseResult<>(baseResponseDTO);
     }
 
     @Override

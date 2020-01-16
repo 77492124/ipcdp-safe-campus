@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.ExportWatchListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWatchListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
 import com.jintu.safecampus.common.dto.response.ExportPrincipal;
@@ -60,4 +61,11 @@ public interface WatchListMapper extends BaseMapper<WatchList> {
      * @return 负责人列表
      */
     List<ExportPrincipal> findExportPrincipal(Long id);
+
+    /**
+     * 根据值班id查询负责人列表
+     * @param watchListId 值班id
+     * @return 负责人列表
+     */
+    List<FindShiftSettingDTO> findPrincipals(Long watchListId);
 }
