@@ -17,4 +17,27 @@
             and a.unit_info_id = #{unitInfoId}
             and a.person_type = #{personType}
     </select>
+    <select id="findNursingPostPersonUnWorkRecord"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonUnWorkRecordResponseDTO">
+        SELECT
+        wl.`working_date`,npt.`time_name`,npt.`starting_time`,npt.`end_time`, u.`point_name`
+        FROM
+        nursing_post_person_work_record n,
+        watch_list wl,
+        nursing_post_time npt,
+        unit_point u
+        WHERE
+        n.`watch_list_id`=wl.`id`
+        AND
+        wl.`nursing_post_time_id`=npt.`id`
+        AND
+        wl.`unit_point_id`=u.`id`
+        AND
+        n.`record_type`=2
+        AND n.`deleted`=0
+        AND wl.`deleted`=0
+        AND npt.`deleted`=0
+        AND u.`deleted`=0
+        AND n.`nursing_post_person_id`=#{requestDTO.nursingPostPersonId}
+    </select>
 </mapper>

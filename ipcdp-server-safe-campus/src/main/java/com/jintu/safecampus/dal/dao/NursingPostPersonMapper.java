@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonUnWorkRecordRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonUnWorkRecordResponseDTO;
 import com.jintu.safecampus.dal.model.NursingPostPerson;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,4 +39,12 @@ public interface NursingPostPersonMapper extends BaseMapper<NursingPostPerson> {
      * @return 护学岗人员列表
      */
     List<FindShiftSettingDTO> findNursingPostPersonLists(@Param("unitInfoId") Long unitInfoId, @Param("personType") Integer personType);
+
+    /**
+     * 查询护学岗人员脱岗记录
+     * @param page
+     * @param requestDTO
+     * @return
+     */
+    IPage<NursingPostPersonUnWorkRecordResponseDTO> findNursingPostPersonUnWorkRecord(Page page, @Param("requestDTO") NursingPostPersonUnWorkRecordRequestDTO requestDTO);
 }

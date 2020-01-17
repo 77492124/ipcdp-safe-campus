@@ -1,11 +1,19 @@
 package com.jintu.safecampus.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
+import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonUnWorkRecordRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.NursingPostWorkRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonUnWorkRecordResponseDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
 import com.jintu.safecampus.dal.dao.NursingPostPersonWorkRecordMapper;
 import com.jintu.safecampus.dal.dao.WatchListMapper;
@@ -18,6 +26,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -37,30 +47,37 @@ public class NursingPostPersonWorkRecordServiceImpl extends ServiceImpl<NursingP
 
     @Transactional
     @Override
-    public ResponseResult nursingPostWork(NursingPostWorkRequestDTO nursingPostWorkRequestDTO) {
+    public ResponseResult nursingPostWork(NursingPostWorkRequestDTO requestDTO) {
 
-        WatchList watchList = watchListMapper.selectById(nursingPostWorkRequestDTO.getWatchListId());
+        WatchList watchList = watchListMapper.selectById(requestDTO.getWatchListId());
         if(ObjectUtils.isEmpty(watchList)){
             ExceptionCast.cast("查询不到值班表");
         }
         //添加护学岗人员上班记录表
         NursingPostPersonWorkRecord nursingPostPersonWorkRecord = new NursingPostPersonWorkRecord();
-        nursingPostPersonWorkRecord.setNursingPostPersonId(nursingPostWorkRequestDTO.getNursingPostPersonId());
-        nursingPostPersonWorkRecord.setRecordType(nursingPostWorkRequestDTO.getRecordType());
-        nursingPostPersonWorkRecord.setWatchListId(nursingPostWorkRequestDTO.getWatchListId());
-
+        BeanUtils.copyProperties(requestDTO,nursingPostPersonWorkRecord);
         boolean save = this.save(nursingPostPersonWorkRecord);
+
         if (!save) {
             ExceptionCast.cast("工作记录添加失败");
         }
         //修改护学岗人员上班状态
         boolean update = new LambdaUpdateChainWrapper<>(nursingPostPersonMapper)
-                .eq(NursingPostPerson::getId, nursingPostWorkRequestDTO.getNursingPostPersonId())
-                .set(NursingPostPerson::getWorkStatus, nursingPostWorkRequestDTO.getRecordType())
+                .eq(NursingPostPerson::getId, requestDTO.getNursingPostPersonId())
+                .set(NursingPostPerson::getWorkStatus, requestDTO.getRecordType())
                 .update();
         if (!update) {
             ExceptionCast.cast("修改护学岗人员上班状态失败");
         }
         return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public QueryResponseResult<NursingPostPersonUnWorkRecordResponseDTO> findNursingPostPersonUnWorkRecord(NursingPostPersonUnWorkRecordRequestDTO requestDTO) {
+        Page page = new Page(requestDTO.getCurrent(), requestDTO.getSize());
+        page.addOrder(OrderItem.desc("wl.working_date"));
+        IPage<NursingPostPersonUnWorkRecordResponseDTO> iPage=nursingPostPersonMapper.findNursingPostPersonUnWorkRecord(page,requestDTO);
+        QueryResult<NursingPostPersonUnWorkRecordResponseDTO> result = new QueryResult<>(iPage.getRecords(), iPage.getTotal());
+        return new QueryResponseResult<>(result);
     }
 }

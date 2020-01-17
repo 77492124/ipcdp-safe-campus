@@ -23,10 +23,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSett
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
 import com.jintu.safecampus.common.dto.response.ExportWatchListDTO;
 import com.jintu.safecampus.dal.dao.*;
-import com.jintu.safecampus.dal.model.NursingPostTime;
-import com.jintu.safecampus.dal.model.PointRequirementsSetting;
-import com.jintu.safecampus.dal.model.WatchList;
-import com.jintu.safecampus.dal.model.WatchPersonnelList;
+import com.jintu.safecampus.dal.model.*;
 import com.jintu.safecampus.service.IWatchListService;
 import com.jintu.safecampus.service.IWatchPersonnelListService;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -65,6 +62,9 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
 
     @Resource
     private NursingPostTimeMapper nursingPostTimeMapper;
+
+    @Resource
+    private UnitPointMapper unitPointMapper;
     @Override
     @Transactional(rollbackFor = {Exception.class})
     public void saveShiftSetting(SaveShiftSettingBaseRequestDTO requestDTO) {
@@ -196,17 +196,15 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
 
     @Override
     public QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(NursingPostTaskRequestDTO requestDTO) {
-
        List<NursingPostTaskResponseDTO> list =baseMapper.findNursingPostTask(requestDTO);
 
        list.forEach(one->{
             Long nursingPostTimeId = one.getNursingPostTimeId();
             NursingPostTime nursingPostTime = nursingPostTimeMapper.selectById(nursingPostTimeId);
-
             one.setStartingTime(nursingPostTime.getStartingTime());
             one.setEndTime(nursingPostTime.getEndTime());
             one.setTimeName(nursingPostTime.getTimeName());
-
+            one.setPointName(unitPointMapper.selectById(one.getUnitPointId()).getPointName());
         });
         QueryResult<NursingPostTaskResponseDTO> result = new QueryResult<NursingPostTaskResponseDTO>(list,null);
         QueryResponseResult<NursingPostTaskResponseDTO> objectQueryResponseResult = new QueryResponseResult<NursingPostTaskResponseDTO>(result);

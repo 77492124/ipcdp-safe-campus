@@ -1,5 +1,6 @@
 package com.jintu.ipcdp.framework.model.safecampus.dto.response.find;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,6 +15,14 @@ import java.time.LocalTime;
  */
 @Data
 public class NursingPostPersonUnWorkRecordResponseDTO {
+
+    /**
+     * 工作日期 工作日期
+     */
+    @ApiModelProperty("工作日期")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+    private LocalDate workingDate;
+
     /**
      * 时间名称 时间名称
      */
@@ -21,26 +30,19 @@ public class NursingPostPersonUnWorkRecordResponseDTO {
     private String timeName;
 
     /**
-     * 工作日期 工作日期
-     */
-    @ApiModelProperty("工作日期")
-    private LocalDate workingDate;
-    /**
      * 开始时间 开始时间
      */
     @ApiModelProperty("开始时间")
+    @JsonFormat(pattern="HH:mm:ss",timezone="GMT+8")
     private LocalTime startingTime;
 
     /**
      * 结束时间 结束时间
      */
     @ApiModelProperty("结束时间")
+    @JsonFormat(pattern="HH:mm:ss",timezone="GMT+8")
     private LocalTime endTime;
-    /**
-     * 单位点位id 单位点位id
-     */
-    @ApiModelProperty("单位点位id")
-    private Long unitPointId;
+
     /**
      * 点位名称
      */

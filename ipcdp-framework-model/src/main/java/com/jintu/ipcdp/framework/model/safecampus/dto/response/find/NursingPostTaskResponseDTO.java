@@ -33,6 +33,11 @@ public class NursingPostTaskResponseDTO {
     @ApiModelProperty("单位点位id")
     private Long unitPointId;
 
+    /**
+     * 点位名称 点位名称
+     */
+    @ApiModelProperty("点位名称")
+    private String pointName;
 
     /**
      * 时间名称 时间名称
