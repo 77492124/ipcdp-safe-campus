@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.jintu.safecampus.dal.dao.UnitServerInfoMapper;
 import com.jintu.safecampus.dal.model.UnitServerInfo;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import sun.management.counter.Units;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -29,7 +27,7 @@ public class UnitServerInfoTimer {
     private UnitServerInfoMapper unitServerInfoMapper;
 
     //每120s查询一次
-    @Scheduled(fixedRate=120000)
+    //@Scheduled(fixedRate=120000)
     public void e(){
         List<UnitServerInfo> unitServerInfos = unitServerInfoMapper.selectList(Wrappers.<UnitServerInfo>lambdaQuery());
         unitServerInfos.forEach(unitServerInfo->{

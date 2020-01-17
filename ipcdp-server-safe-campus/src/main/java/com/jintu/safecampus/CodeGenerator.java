@@ -123,7 +123,7 @@ public class CodeGenerator {
         list.add(new TableFill("updated_time", FieldFill.INSERT_UPDATE));
         strategy.setTableFillList(list);
         strategy.setTablePrefix(pc.getModuleName() + "_");
-        strategy.setInclude("employee_job_relation","unit_server_info","unit_camera_list");
+        strategy.setInclude("nursing_post_heartbeat_record","nursing_post_person_work_record");
         //strategy.setNotLikeTable(new LikeTable("pdman_db_version"));
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());

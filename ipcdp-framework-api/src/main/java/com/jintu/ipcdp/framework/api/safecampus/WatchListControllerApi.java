@@ -76,4 +76,12 @@ public interface WatchListControllerApi {
      */
     @PostMapping("findNursingPostTask")
     QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(@Validated @RequestBody NursingPostTaskRequestDTO requestDTO);
+
+    /**
+     * 根据值班id删除值班
+     * @param watchListId 值班id
+     * @return 是否成功
+     */
+    @DeleteMapping("{watchListId}")
+    ResponseResult delWatchList(@PathVariable("watchListId") Long watchListId);
 }

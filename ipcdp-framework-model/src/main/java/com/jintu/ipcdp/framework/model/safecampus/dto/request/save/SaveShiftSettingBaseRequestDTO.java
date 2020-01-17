@@ -1,7 +1,5 @@
 package com.jintu.ipcdp.framework.model.safecampus.dto.request.save;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.jintu.ipcdp.framework.util.LocalDateDeserializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -37,7 +35,6 @@ public class SaveShiftSettingBaseRequestDTO {
      * 工作日期 工作日期
      */
     @NotEmpty(message = "工作日期不能为空")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
     @ApiModelProperty("工作日期集合 yyyy-MM-dd")
     private List<LocalDate> workingDates;
 

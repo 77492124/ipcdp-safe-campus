@@ -69,4 +69,10 @@ public interface IWatchListService extends IService<WatchList> {
      * @return
      */
     QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(NursingPostTaskRequestDTO requestDTO);
+    /**
+     * 根据值班id删除值班
+     * @param watchListId 值班id
+     * @return 是否成功
+     */
+    ResponseResult delWatchList(Long watchListId);
 }

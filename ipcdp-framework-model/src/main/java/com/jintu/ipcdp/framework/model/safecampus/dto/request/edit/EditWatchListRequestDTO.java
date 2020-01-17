@@ -29,4 +29,11 @@ public class EditWatchListRequestDTO {
     @NotEmpty(message = "负责人id集合不能为空")
     @ApiModelProperty("负责人id集合(护学岗人员id)")
     private List<Long> principalIds;
+
+    /**
+     * 创建人id 创建人id（员工id）
+     */
+    @NotNull(message = "创建人id不能为空")
+    @ApiModelProperty("创建人id(当前登录用户id)")
+    private Long createdId;
 }

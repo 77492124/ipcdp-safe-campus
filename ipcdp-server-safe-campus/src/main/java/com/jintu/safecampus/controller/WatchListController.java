@@ -97,4 +97,12 @@ public class WatchListController implements WatchListControllerApi {
     }
 
 
+    @MyLog(actionType = ActionTypeEnum.DELETE, description = "根据值班id删除值班")
+    @ApiOperation(value = "根据值班id删除值班", response = ResponseResult.class)
+    @Override
+    public ResponseResult delWatchList(Long watchListId) {
+        return watchListService.delWatchList(watchListId);
+    }
+
+
 }

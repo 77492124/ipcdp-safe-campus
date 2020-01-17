@@ -20,10 +20,23 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRea
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostTaskRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingBaseRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveShiftSettingRequestDTO;
-import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.*;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindShiftSettingDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListByIdResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWatchListResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindWorkInRealTimeStaffResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostTaskResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.UnitPointListDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
 import com.jintu.safecampus.common.dto.response.ExportWatchListDTO;
-import com.jintu.safecampus.dal.dao.*;
-import com.jintu.safecampus.dal.model.*;
+import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
+import com.jintu.safecampus.dal.dao.NursingPostTimeMapper;
+import com.jintu.safecampus.dal.dao.PointRequirementsSettingMapper;
+import com.jintu.safecampus.dal.dao.UnitPointMapper;
+import com.jintu.safecampus.dal.dao.WatchListMapper;
+import com.jintu.safecampus.dal.model.NursingPostTime;
+import com.jintu.safecampus.dal.model.PointRequirementsSetting;
+import com.jintu.safecampus.dal.model.WatchList;
+import com.jintu.safecampus.dal.model.WatchPersonnelList;
 import com.jintu.safecampus.service.IWatchListService;
 import com.jintu.safecampus.service.IWatchPersonnelListService;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -33,7 +46,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -148,7 +160,8 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
         List<WatchPersonnelList> watchPersonnelLists = requestDTO.getPrincipalIds().stream()
                 .map(s -> new WatchPersonnelList()
                 .setWatchListId(requestDTO.getId())
-                .setNursingPostPersonId(s))
+                .setNursingPostPersonId(s)
+                .setCreatedId(requestDTO.getCreatedId()))
                 .collect(Collectors.toList());
         watchPersonnelListService.saveBatch(watchPersonnelLists);
         return ResponseResult.SUCCESS();
@@ -209,6 +222,20 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
         QueryResult<NursingPostTaskResponseDTO> result = new QueryResult<NursingPostTaskResponseDTO>(list,null);
         QueryResponseResult<NursingPostTaskResponseDTO> objectQueryResponseResult = new QueryResponseResult<NursingPostTaskResponseDTO>(result);
         return objectQueryResponseResult;
+    }
+
+    @Override
+    @Transactional(rollbackFor = {Exception.class})
+    public ResponseResult delWatchList(Long watchListId) {
+        int count = this.count(Wrappers.<WatchList>lambdaQuery().eq(WatchList::getId,watchListId));
+        if (count <= 0) {
+            ExceptionCast.cast("删除的值班不存在！");
+        }
+        // 先删除值班人员
+        watchPersonnelListService.remove(Wrappers.<WatchPersonnelList>lambdaQuery().eq(WatchPersonnelList::getWatchListId,watchListId));
+        // 删除值班
+        this.removeById(watchListId);
+        return ResponseResult.SUCCESS();
     }
 
 }

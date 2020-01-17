@@ -55,4 +55,9 @@ public class WatchListControllerApiFallBack implements WatchListControllerApi {
     public QueryResponseResult<NursingPostTaskResponseDTO> findNursingPostTask(NursingPostTaskRequestDTO requestDTO) {
         return QueryResponseResult.SERVER_ANOMALY();
     }
+
+    @Override
+    public ResponseResult delWatchList(Long watchListId) {
+        return ResponseResult.SERVER_ANOMALY();
+    }
 }
