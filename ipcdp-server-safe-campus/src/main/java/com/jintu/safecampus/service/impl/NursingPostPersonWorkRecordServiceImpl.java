@@ -49,6 +49,18 @@ public class NursingPostPersonWorkRecordServiceImpl extends ServiceImpl<NursingP
     @Override
     public ResponseResult nursingPostWork(NursingPostWorkRequestDTO requestDTO) {
 
+        NursingPostPerson nursingPostPerson = nursingPostPersonMapper.selectById(requestDTO.getNursingPostPersonId());
+        if (ObjectUtils.isEmpty(nursingPostPerson)) {
+            ExceptionCast.cast("查询不到护学岗人员信息");
+        }
+        //记录类型 0：下班；1：上班
+        if(requestDTO.getRecordType()==0 && nursingPostPerson.getWorkStatus()== false){
+            ExceptionCast.cast("已经点过下班，请勿重新点击");
+        }
+        if(requestDTO.getRecordType()==1 && nursingPostPerson.getWorkStatus()== true){
+            ExceptionCast.cast("已经点过上班，请勿重新点击");
+        }
+
         WatchList watchList = watchListMapper.selectById(requestDTO.getWatchListId());
         if(ObjectUtils.isEmpty(watchList)){
             ExceptionCast.cast("查询不到值班表");
