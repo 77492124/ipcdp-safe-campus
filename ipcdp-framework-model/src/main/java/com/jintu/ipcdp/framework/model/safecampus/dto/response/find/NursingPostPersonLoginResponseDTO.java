@@ -16,7 +16,7 @@ public class NursingPostPersonLoginResponseDTO {
     /**
      * 唯一标识ID 唯一标识ID
      */
-    @ApiModelProperty("唯一标识ID")
+    @ApiModelProperty("护学岗人员id")
     private Long id;
 
     /**
