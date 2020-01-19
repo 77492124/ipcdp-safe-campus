@@ -24,4 +24,16 @@
         where a.deleted = 0
             and a.id = #{id}
     </select>
+    <select id="findSchoolList"
+            resultType="com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO">
+        SELECT
+        u.`id`,u.`unit_name`,u.`longitude`,u.`latitude` FROM unit_info u
+        WHERE
+        u.`unit_type`=0
+        AND
+        u.`deleted`=0
+        <if test="unitName !=null ">
+            and u.unit_name like CONCAT('%',#{unitName},'%')
+        </if>
+    </select>
 </mapper>

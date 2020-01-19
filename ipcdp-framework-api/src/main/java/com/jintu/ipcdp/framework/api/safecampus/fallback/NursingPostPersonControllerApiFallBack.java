@@ -7,10 +7,12 @@ import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -44,5 +46,10 @@ public class NursingPostPersonControllerApiFallBack implements NursingPostPerson
     @Override
     public CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(NursingPostPersonLoginRequestDTO requestDTO) {
         return CommonResponseResult.SERVER_ANOMALY();
+    }
+
+    @Override
+    public QueryResponseResult<WorkInRealTimeStaffDTO> findWorkInRealTimeStaff(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
+        return new QueryResponseResult<>(CommonCode.SERVER_ANOMALY);
     }
 }

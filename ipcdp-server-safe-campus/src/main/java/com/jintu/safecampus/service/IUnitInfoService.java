@@ -8,6 +8,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitInfoR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import com.jintu.safecampus.dal.model.UnitInfo;
 
@@ -50,4 +51,11 @@ public interface IUnitInfoService extends IService<UnitInfo> {
      * @return 是否成功
      */
     ResponseResult delUnitInfo(Long unitInfoId);
+
+    /**
+     * 查询学校列表
+     * @param unitName
+     * @return
+     */
+    QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName);
 }

@@ -7,10 +7,12 @@ import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -68,4 +70,12 @@ public interface NursingPostPersonControllerApi {
      */
     @PostMapping("nursingPostPersonLogin")
     CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(@Validated @RequestBody NursingPostPersonLoginRequestDTO requestDTO);
+    /**
+     * 查询今日单位护学岗人员信息
+     * @param requestDTO
+     * @return
+     */
+    @GetMapping("findWorkInRealTimeStaff")
+    QueryResponseResult<WorkInRealTimeStaffDTO> findWorkInRealTimeStaff(@Validated FindWorkInRealTimeStaffListRequestDTO requestDTO);
+
 }

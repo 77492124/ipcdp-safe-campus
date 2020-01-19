@@ -9,15 +9,11 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitInfoR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author Parker
@@ -66,4 +62,12 @@ public interface UnitInfoControllerApi {
      */
     @DeleteMapping("{unitInfoId}")
     ResponseResult delUnitInfo(@PathVariable("unitInfoId") Long unitInfoId);
+
+    /**
+     * 查询学校列表
+     * @param unitName
+     * @return
+     */
+    @GetMapping("findSchoolList")
+    QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(@RequestParam(value = "unitName",required = false) String unitName);
 }

@@ -9,6 +9,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitInfoR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import org.springframework.stereotype.Component;
 
@@ -43,5 +44,10 @@ public class UnitInfoControllerApiFallBack implements UnitInfoControllerApi {
     @Override
     public ResponseResult delUnitInfo(Long unitInfoId) {
         return ResponseResult.SERVER_ANOMALY();
+    }
+
+    @Override
+    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName) {
+        return new QueryResponseResult<>(CommonCode.SERVER_ANOMALY);
     }
 }

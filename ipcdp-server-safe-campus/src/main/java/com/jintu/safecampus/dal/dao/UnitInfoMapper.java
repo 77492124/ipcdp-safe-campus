@@ -5,9 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import com.jintu.safecampus.dal.model.UnitInfo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -33,4 +36,11 @@ public interface UnitInfoMapper extends BaseMapper<UnitInfo> {
      * @return 单位信息
      */
     EditUnitInfoResponseDTO findUnitInfoById(Long id);
+
+    /**
+     * 查询学校列表
+     * @param unitName
+     * @return
+     */
+    List<FindSchoolListResponseDTO> findSchoolList(@Param("unitName") String unitName);
 }

@@ -13,10 +13,12 @@ import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
 import com.jintu.safecampus.dal.dao.NursingPostPersonMapper;
 import com.jintu.safecampus.dal.dao.WatchListMapper;
 import com.jintu.safecampus.dal.model.NursingPostPerson;
@@ -26,6 +28,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -102,5 +106,14 @@ public class NursingPostPersonServiceImpl extends ServiceImpl<NursingPostPersonM
         NursingPostPersonLoginResponseDTO nursingPostPersonLoginResponseDTO = new NursingPostPersonLoginResponseDTO();
         BeanUtils.copyProperties(nursingPostPerson,nursingPostPersonLoginResponseDTO);
         return new CommonResponseResult<>(nursingPostPersonLoginResponseDTO);
+    }
+
+    @Override
+    public QueryResponseResult<WorkInRealTimeStaffDTO> findWorkInRealTimeStaff(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        // 查询当前上班人员列表
+        List<WorkInRealTimeStaffDTO> workInRealTimeStaffList = watchListMapper.findWorkInRealTimeStaff(requestDTO.getUnitInfoId(),localDateTime.toLocalDate(),localDateTime.toLocalTime());
+        QueryResult queryResult = new QueryResult(workInRealTimeStaffList,null);
+        return new QueryResponseResult(queryResult);
     }
 }

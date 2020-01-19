@@ -7,10 +7,12 @@ import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindNursingPostPersonListRequestDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindWorkInRealTimeStaffListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.NursingPostPersonLoginRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveNursingPostPersonRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindNursingPostPersonListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.NursingPostPersonLoginResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.WorkInRealTimeStaffDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
 import com.jintu.safecampus.service.INursingPostPersonService;
@@ -71,4 +73,12 @@ public class NursingPostPersonController implements NursingPostPersonControllerA
     public CommonResponseResult<NursingPostPersonLoginResponseDTO> nursingPostPersonLogin(NursingPostPersonLoginRequestDTO requestDTO) {
         return nursingPostPersonService.nursingPostPersonLogin(requestDTO);
     }
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "查询今日单位护学岗人员信息")
+    @ApiOperation(value = "查询今日单位护学岗人员信息", response = WorkInRealTimeStaffDTO.class)
+    @Override
+    public QueryResponseResult<WorkInRealTimeStaffDTO> findWorkInRealTimeStaff(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
+        return nursingPostPersonService.findWorkInRealTimeStaff(requestDTO);
+    }
+
 }

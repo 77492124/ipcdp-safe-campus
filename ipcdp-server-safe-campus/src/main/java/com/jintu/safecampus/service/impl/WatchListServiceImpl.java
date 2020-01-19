@@ -238,4 +238,13 @@ public class WatchListServiceImpl extends ServiceImpl<WatchListMapper, WatchList
         return ResponseResult.SUCCESS();
     }
 
+    @Override
+    public QueryResponseResult<WorkInRealTimeStaffDTO> findWorkInRealTimeStaff(FindWorkInRealTimeStaffListRequestDTO requestDTO) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        // 查询当前上班人员列表
+        List<WorkInRealTimeStaffDTO> workInRealTimeStaffList = baseMapper.findWorkInRealTimeStaff(requestDTO.getUnitInfoId(),localDateTime.toLocalDate(),localDateTime.toLocalTime());
+        QueryResult queryResult = new QueryResult(workInRealTimeStaffList,null);
+        return new QueryResponseResult(queryResult);
+    }
+
 }

@@ -14,6 +14,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitInfoR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import com.jintu.safecampus.dal.dao.EmployeeJobRelationMapper;
 import com.jintu.safecampus.dal.dao.EmployeeMapper;
@@ -131,5 +132,12 @@ public class UnitInfoServiceImpl extends ServiceImpl<UnitInfoMapper, UnitInfo> i
         this.removeById(unitInfoId);
         employeeMapper.delete(Wrappers.<Employee>lambdaQuery().eq(Employee::getUnitInfoId,unitInfoId));
         return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName) {
+        List<FindSchoolListResponseDTO> list=baseMapper.findSchoolList(unitName);
+        QueryResult<FindSchoolListResponseDTO> result = new QueryResult<>(list, null);
+        return new QueryResponseResult<FindSchoolListResponseDTO>(result);
     }
 }

@@ -9,6 +9,7 @@ import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitInfoR
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.find.FindUnitInfoListRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.save.SaveUnitInfoRequestDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.edit.EditUnitInfoResponseDTO;
+import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindSchoolListResponseDTO;
 import com.jintu.ipcdp.framework.model.safecampus.dto.response.find.FindUnitInfoListResponseDTO;
 import com.jintu.safecampus.common.annotation.MyLog;
 import com.jintu.safecampus.common.enums.ActionTypeEnum;
@@ -69,5 +70,12 @@ public class UnitInfoController implements UnitInfoControllerApi {
     @Override
     public ResponseResult delUnitInfo(Long unitInfoId) {
         return unitInfoService.delUnitInfo(unitInfoId);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "查询学校列表")
+    @ApiOperation(value = "查询学校列表", response = FindSchoolListResponseDTO.class)
+    @Override
+    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName) {
+        return unitInfoService.findSchoolList(unitName);
     }
 }
