@@ -75,7 +75,7 @@ public class UnitInfoController implements UnitInfoControllerApi {
     @MyLog(actionType = ActionTypeEnum.FIND, description = "查询学校列表")
     @ApiOperation(value = "查询学校列表", response = FindSchoolListResponseDTO.class)
     @Override
-    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName) {
-        return unitInfoService.findSchoolList(unitName);
+    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList() {
+        return unitInfoService.findSchoolList();
     }
 }

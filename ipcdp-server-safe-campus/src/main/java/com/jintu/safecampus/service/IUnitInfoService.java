@@ -54,8 +54,7 @@ public interface IUnitInfoService extends IService<UnitInfo> {
 
     /**
      * 查询学校列表
-     * @param unitName
      * @return
      */
-    QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName);
+    QueryResponseResult<FindSchoolListResponseDTO> findSchoolList();
 }

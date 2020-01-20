@@ -65,9 +65,8 @@ public interface UnitInfoControllerApi {
 
     /**
      * 查询学校列表
-     * @param unitName
      * @return
      */
     @GetMapping("findSchoolList")
-    QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(@RequestParam(value = "unitName",required = false) String unitName);
+    QueryResponseResult<FindSchoolListResponseDTO> findSchoolList();
 }

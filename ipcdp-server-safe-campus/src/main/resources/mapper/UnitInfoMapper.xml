@@ -32,8 +32,5 @@
         u.`unit_type`=0
         AND
         u.`deleted`=0
-        <if test="unitName !=null ">
-            and u.unit_name like CONCAT('%',#{unitName},'%')
-        </if>
     </select>
 </mapper>

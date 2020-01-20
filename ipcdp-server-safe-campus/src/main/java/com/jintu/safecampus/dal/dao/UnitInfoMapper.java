@@ -39,8 +39,7 @@ public interface UnitInfoMapper extends BaseMapper<UnitInfo> {
 
     /**
      * 查询学校列表
-     * @param unitName
      * @return
      */
-    List<FindSchoolListResponseDTO> findSchoolList(@Param("unitName") String unitName);
+    List<FindSchoolListResponseDTO> findSchoolList();
 }

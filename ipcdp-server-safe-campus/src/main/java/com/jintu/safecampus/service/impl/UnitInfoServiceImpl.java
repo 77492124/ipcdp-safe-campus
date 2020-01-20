@@ -135,8 +135,8 @@ public class UnitInfoServiceImpl extends ServiceImpl<UnitInfoMapper, UnitInfo> i
     }
 
     @Override
-    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName) {
-        List<FindSchoolListResponseDTO> list=baseMapper.findSchoolList(unitName);
+    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList() {
+        List<FindSchoolListResponseDTO> list=baseMapper.findSchoolList();
         QueryResult<FindSchoolListResponseDTO> result = new QueryResult<>(list, null);
         return new QueryResponseResult<FindSchoolListResponseDTO>(result);
     }

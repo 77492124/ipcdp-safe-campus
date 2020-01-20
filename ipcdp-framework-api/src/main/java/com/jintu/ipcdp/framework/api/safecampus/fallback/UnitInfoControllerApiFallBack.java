@@ -47,7 +47,7 @@ public class UnitInfoControllerApiFallBack implements UnitInfoControllerApi {
     }
 
     @Override
-    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList(String unitName) {
+    public QueryResponseResult<FindSchoolListResponseDTO> findSchoolList() {
         return new QueryResponseResult<>(CommonCode.SERVER_ANOMALY);
     }
 }
