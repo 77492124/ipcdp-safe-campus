@@ -1,6 +1,7 @@
 package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitCameraRequestDTO;
@@ -45,4 +46,11 @@ public interface IUnitCameraListService extends IService<UnitCameraList> {
      * @return
      */
     ResponseResult delUnitCamera(Long unitCameraId);
+
+    /**
+     * 查询单位摄像头
+     * @param unitCameraListID
+     * @return
+     */
+    CommonResponseResult<FindUnitCameraListResponseDTO> findUnitCamera(Long unitCameraListID);
 }

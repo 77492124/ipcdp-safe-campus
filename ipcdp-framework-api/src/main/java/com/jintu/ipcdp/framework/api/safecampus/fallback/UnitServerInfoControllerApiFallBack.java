@@ -2,6 +2,7 @@ package com.jintu.ipcdp.framework.api.safecampus.fallback;
 
 import com.jintu.ipcdp.framework.api.safecampus.UnitServerInfoControllerApi;
 import com.jintu.ipcdp.framework.model.response.CommonCode;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitPointRequestDTO;
@@ -40,6 +41,10 @@ public class UnitServerInfoControllerApiFallBack implements UnitServerInfoContro
         return ResponseResult.SERVER_ANOMALY();
     }
 
+    @Override
+    public CommonResponseResult<FindUnitServerInfoListResponseDTO> findUnitServerInfo(Long unitServerInfoId) {
+        return CommonResponseResult.SERVER_ANOMALY();
+    }
 
 
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWra
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
@@ -50,6 +51,7 @@ public class UnitServerInfoServiceImpl extends ServiceImpl<UnitServerInfoMapper,
         }
 
         Page<FindUnitServerInfoListResponseDTO> page = new Page<>(requestDTO.getCurrent(),requestDTO.getSize());
+        page.addOrder(OrderItem.desc("u.created_time"));
         IPage<FindUnitServerInfoListResponseDTO> iPage = baseMapper.findUnitServerInfoList(page,requestDTO);
         QueryResult<FindUnitServerInfoListResponseDTO> queryResult = new QueryResult<>(iPage.getRecords(),iPage.getTotal());
         return new QueryResponseResult<>(queryResult);
@@ -97,5 +99,16 @@ public class UnitServerInfoServiceImpl extends ServiceImpl<UnitServerInfoMapper,
             ExceptionCast.cast("删除失败");
         }
         return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public CommonResponseResult<FindUnitServerInfoListResponseDTO> findUnitServerInfo(Long unitServerInfoId) {
+        UnitServerInfo unitServerInfo = baseMapper.selectById(unitServerInfoId);
+        if(ObjectUtils.isEmpty(unitServerInfo)){
+            ExceptionCast.cast("查询不到服务器信息");
+        }
+        FindUnitServerInfoListResponseDTO responseDTO = new FindUnitServerInfoListResponseDTO();
+        BeanUtils.copyProperties(unitServerInfo,responseDTO);
+        return new CommonResponseResult(responseDTO);
     }
 }

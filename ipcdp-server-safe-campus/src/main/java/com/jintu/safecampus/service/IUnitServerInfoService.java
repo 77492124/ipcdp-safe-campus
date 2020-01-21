@@ -1,6 +1,7 @@
 package com.jintu.safecampus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitServerInfoRequestDTO;
@@ -45,4 +46,10 @@ public interface IUnitServerInfoService extends IService<UnitServerInfo> {
      * @return
      */
     ResponseResult delUnitServerInfo(Long unitServerInfoId);
+    /**
+     * 查询单位服务器
+     * @param unitServerInfoId
+     * @return
+     */
+    CommonResponseResult<FindUnitServerInfoListResponseDTO> findUnitServerInfo(Long unitServerInfoId);
 }

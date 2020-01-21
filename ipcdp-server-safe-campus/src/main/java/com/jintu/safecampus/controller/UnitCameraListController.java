@@ -2,6 +2,7 @@ package com.jintu.safecampus.controller;
 
 
 import com.jintu.ipcdp.framework.api.safecampus.UnitCameraListControllerApi;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitCameraRequestDTO;
@@ -63,5 +64,12 @@ public class UnitCameraListController implements UnitCameraListControllerApi {
     @Override
     public ResponseResult delUnitCamera(Long unitCameraId) {
         return unitCameraListService.delUnitCamera(unitCameraId);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.FIND,description = "查询单位摄像头")
+    @ApiOperation(value = "查询单位摄像头", response = FindUnitCameraListResponseDTO.class)
+    @Override
+    public CommonResponseResult<FindUnitCameraListResponseDTO> findUnitCamera(Long unitCameraListID) {
+        return unitCameraListService.findUnitCamera(unitCameraListID);
     }
 }

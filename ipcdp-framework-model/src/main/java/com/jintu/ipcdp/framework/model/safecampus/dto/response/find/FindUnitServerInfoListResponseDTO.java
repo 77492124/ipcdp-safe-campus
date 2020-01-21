@@ -46,4 +46,9 @@ public class FindUnitServerInfoListResponseDTO {
     private String portNumber;
 
 
+    /**
+     * 在线标记 在线标记0：离线；1：在线；
+     */
+    @ApiModelProperty("在线标记 在线标记0：离线；1：在线")
+    private Boolean markOnline;
 }

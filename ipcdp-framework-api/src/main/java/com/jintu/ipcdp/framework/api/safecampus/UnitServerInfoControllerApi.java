@@ -2,6 +2,7 @@ package com.jintu.ipcdp.framework.api.safecampus;
 
 import com.jintu.ipcdp.framework.api.safecampus.fallback.UnitServerInfoControllerApiFallBack;
 import com.jintu.ipcdp.framework.client.JtServiceList;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitPointRequestDTO;
@@ -55,5 +56,13 @@ public interface UnitServerInfoControllerApi {
      */
     @DeleteMapping("{unitSserverInfoId}")
     ResponseResult delUnitServerInfo(@PathVariable("unitSserverInfoId") Long unitServerInfoId);
+
+    /**
+     * 查询单位服务器
+     * @param unitServerInfoId
+     * @return
+     */
+    @GetMapping("unitServerInfoId")
+    CommonResponseResult<FindUnitServerInfoListResponseDTO> findUnitServerInfo(@RequestParam("unitServerInfoId") Long unitServerInfoId);
 
 }

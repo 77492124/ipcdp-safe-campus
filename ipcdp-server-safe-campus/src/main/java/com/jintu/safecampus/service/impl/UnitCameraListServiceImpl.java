@@ -1,11 +1,13 @@
 package com.jintu.safecampus.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jintu.ipcdp.framework.exception.ExceptionCast;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
@@ -19,6 +21,7 @@ import com.jintu.safecampus.dal.model.UnitCameraList;
 import com.jintu.safecampus.dal.model.UnitInfo;
 import com.jintu.safecampus.service.IUnitCameraListService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -46,6 +49,7 @@ public class UnitCameraListServiceImpl extends ServiceImpl<UnitCameraListMapper,
         }
 
         Page<FindUnitCameraListResponseDTO> page = new Page<>(requestDTO.getCurrent(),requestDTO.getSize());
+        page.addOrder(OrderItem.desc("u.created_time"));
         IPage<FindUnitCameraListResponseDTO> iPage = baseMapper.findUnitCameraList(page,requestDTO);
         QueryResult<FindUnitCameraListResponseDTO> queryResult = new QueryResult<>(iPage.getRecords(),iPage.getTotal());
         return new QueryResponseResult<>(queryResult);
@@ -93,5 +97,16 @@ public class UnitCameraListServiceImpl extends ServiceImpl<UnitCameraListMapper,
             ExceptionCast.cast("删除失败");
         }
         return ResponseResult.SUCCESS();
+    }
+
+    @Override
+    public CommonResponseResult<FindUnitCameraListResponseDTO> findUnitCamera(Long unitCameraListID) {
+        UnitCameraList unitCameraList = baseMapper.selectById(unitCameraListID);
+        if(ObjectUtils.isEmpty(unitCameraList)){
+            ExceptionCast.cast("查询不到单位摄像头信息");
+        }
+        FindUnitCameraListResponseDTO findUnitCameraListResponseDTO = new FindUnitCameraListResponseDTO();
+        BeanUtils.copyProperties(unitCameraList,findUnitCameraListResponseDTO);
+        return new CommonResponseResult<>(findUnitCameraListResponseDTO);
     }
 }

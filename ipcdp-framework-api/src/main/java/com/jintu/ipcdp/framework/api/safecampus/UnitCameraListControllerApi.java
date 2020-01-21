@@ -3,6 +3,7 @@ package com.jintu.ipcdp.framework.api.safecampus;
 import com.jintu.ipcdp.framework.api.safecampus.fallback.SysServerInfoControllerApiFallBack;
 import com.jintu.ipcdp.framework.api.safecampus.fallback.UnitCameraListControllerApiFallBack;
 import com.jintu.ipcdp.framework.client.JtServiceList;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitCameraRequestDTO;
@@ -55,4 +56,12 @@ public interface UnitCameraListControllerApi {
      */
     @DeleteMapping("{unitCameraId}")
     ResponseResult delUnitCamera(@PathVariable("unitCameraId") Long unitCameraId);
+
+    /**
+     * 查询单位摄像头
+     * @param unitCameraListID 查询条件
+     * @return 点位列表
+     */
+    @GetMapping("findUnitCamera")
+    CommonResponseResult<FindUnitCameraListResponseDTO> findUnitCamera(@RequestParam("unitCameraListID") Long unitCameraListID);
 }

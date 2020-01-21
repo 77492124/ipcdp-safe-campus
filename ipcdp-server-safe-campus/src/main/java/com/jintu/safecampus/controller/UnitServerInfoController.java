@@ -2,6 +2,7 @@ package com.jintu.safecampus.controller;
 
 
 import com.jintu.ipcdp.framework.api.safecampus.UnitServerInfoControllerApi;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitServerInfoRequestDTO;
@@ -61,5 +62,12 @@ public class UnitServerInfoController implements UnitServerInfoControllerApi {
     @Override
     public ResponseResult delUnitServerInfo(Long unitServerInfoId) {
         return unitServerInfoService.delUnitServerInfo(unitServerInfoId);
+    }
+
+    @MyLog(actionType = ActionTypeEnum.FIND, description = "查询单位服务器")
+    @ApiOperation(value = "查询单位服务器", response = FindUnitServerInfoListResponseDTO.class)
+    @Override
+    public CommonResponseResult<FindUnitServerInfoListResponseDTO> findUnitServerInfo(Long unitServerInfoId) {
+        return unitServerInfoService.findUnitServerInfo(unitServerInfoId);
     }
 }

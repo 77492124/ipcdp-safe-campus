@@ -2,6 +2,7 @@ package com.jintu.ipcdp.framework.api.safecampus.fallback;
 
 import com.jintu.ipcdp.framework.api.safecampus.UnitCameraListControllerApi;
 import com.jintu.ipcdp.framework.model.response.CommonCode;
+import com.jintu.ipcdp.framework.model.response.CommonResponseResult;
 import com.jintu.ipcdp.framework.model.response.QueryResponseResult;
 import com.jintu.ipcdp.framework.model.response.ResponseResult;
 import com.jintu.ipcdp.framework.model.safecampus.dto.request.edit.EditUnitCameraRequestDTO;
@@ -38,5 +39,10 @@ public class UnitCameraListControllerApiFallBack implements UnitCameraListContro
     @Override
     public ResponseResult delUnitCamera(Long unitCameraId) {
         return ResponseResult.SERVER_ANOMALY();
+    }
+
+    @Override
+    public CommonResponseResult<FindUnitCameraListResponseDTO> findUnitCamera(Long unitCameraListID) {
+        return CommonResponseResult.SERVER_ANOMALY();
     }
 }
