@@ -13,7 +13,7 @@
         <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
-        <guava.version>24.0-jre</guava.version>
+        <guava.version>24.1.1-jre</guava.version>
         <commons-io.version>2.6</commons-io.version>
         <fastjson.version>1.2.30</fastjson.version>
         <spring-security-crypto.version>4.2.3.RELEASE</spring-security-crypto.version>
