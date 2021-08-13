@@ -26,7 +26,7 @@
         <hutool.version>4.5.16</hutool.version>
         <mybatis-plus-annotation.version>3.3.0</mybatis-plus-annotation.version>
         <weixin-java-mp.version>3.5.0</weixin-java-mp.version>
-        <bcprov-jdk15on.version>1.59</bcprov-jdk15on.version>
+        <bcprov-jdk15on.version>1.67</bcprov-jdk15on.version>
         <retrofit.version>2.3.0</retrofit.version>
         <logging-interceptor.version>3.8.0</logging-interceptor.version>
         <jersey.version>2.23.2</jersey.version>
